@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civilization I Tech Tree</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+        }
+        #cy {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="cy"></div>
+
+    <script src="https://unpkg.com/cytoscape@3.23.0/dist/cytoscape.min.js"></script>
+    <script src="https://unpkg.com/dagre@0.8.5/dist/dagre.min.js"></script>
+    <script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
+    <script src="graph-data.js"></script>
+    <script>
+        function buildCytoscapeElements(techData) {
+            const elements = [];
+
+            techData.forEach(tech => {
+                const hasUnlocks = tech.unlocks && tech.unlocks.length > 0;
+                let techParent = null;
+
+                if (hasUnlocks) {
+                    const parentId = `parent_${tech.id}`;
+                    techParent = parentId;
+                    // Add a parent node to group the tech and its unlocks
+                    elements.push({
+                        group: 'nodes',
+                        data: { id: parentId, name: tech.name },
+                        classes: 'tech-group'
+                    });
+                }
+
+                // Add the technology node
+                const techNodeData = { id: tech.id, name: tech.name };
+                if (techParent) {
+                    techNodeData.parent = techParent;
+                }
+                elements.push({
+                    group: 'nodes',
+                    data: techNodeData,
+                    classes: 'technology'
+                });
+
+                // Add edges to its prerequisites
+                if (tech.prereqs) {
+                    tech.prereqs.forEach(prereqId => {
+                        elements.push({
+                            group: 'edges',
+                            data: { id: `${prereqId}->${tech.id}`, source: prereqId, target: tech.id }
+                        });
+                    });
+                }
+
+                // Handle unlocks
+                if (hasUnlocks) {
+                    tech.unlocks.forEach(unlock => {
+                        // Add the unlock node and make it a child of the group
+                        elements.push({
+                            group: 'nodes',
+                            data: { id: unlock.id, name: unlock.name, parent: techParent },
+                            classes: `${unlock.type}`
+                        });
+                    });
+                }
+            });
+
+            return elements;
+        }
+
+        async function main() {
+            const elements = buildCytoscapeElements(techTree);
+
+            const cy = cytoscape({
+                container: document.getElementById('cy'),
+                elements: elements,
+                style: [
+                    {
+                        selector: 'node',
+                        style: {
+                            'label': 'data(name)',
+                            'width': 'label',
+                            'height': 'label',
+                            'padding': '10px',
+                            'shape': 'round-rectangle',
+                            'text-valign': 'center',
+                            'text-halign': 'center',
+                            'background-color': '#ccc',
+                            'border-width': 1,
+                            'border-color': '#333'
+                        }
+                    },
+                    {
+                        selector: '.tech-group',
+                        style: {
+                            'text-valign': 'top',
+                            'text-halign': 'center',
+                            'background-opacity': 0.2,
+                            'background-color': '#f0f0f0',
+                            'border-color': '#666',
+                            'label': '' // No label for the group itself
+                        }
+                    },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 2,
+                            'line-color': '#ccc',
+                            'target-arrow-color': '#ccc',
+                            'target-arrow-shape': 'triangle',
+                            'curve-style': 'bezier'
+                        }
+                    },
+                    {
+                        selector: '.technology',
+                        style: {
+                            'background-color': '#9c9',
+                            'font-weight': 'bold'
+                        }
+                    },
+                    {
+                        selector: '.building',
+                        style: { 'background-color': '#ccc' }
+                    },
+                    {
+                        selector: '.wonder',
+                        style: { 'background-color': '#cc9' }
+                    },
+                    {
+                        selector: '.unit',
+                        style: { 'background-color': '#99c' }
+                    },
+                    {
+                        selector: '.spaceshippart',
+                        style: { 'background-color': '#c99' }
+                    },
+                    {
+                        selector: '.highlighted',
+                        style: {
+                            'background-color': '#ff6666',
+                            'line-color': '#ff0000',
+                            'target-arrow-color': '#ff0000',
+                            'transition-property': 'background-color, line-color, target-arrow-color',
+                            'transition-duration': '0.2s'
+                        }
+                    }
+                ],
+                layout: {
+                    name: 'dagre',
+                    padding: 10,
+                    spacingFactor: 1.2
+                }
+            });
+
+            cy.on('mouseover', 'node.technology', function(evt){
+                const node = evt.target;
+                node.addClass('highlighted');
+                // Highlight prerequisites
+                node.predecessors().addClass('highlighted');
+                // If the node is in a group, highlight the group
+                if (node.parent().nonempty()) {
+                    node.parent().addClass('highlighted');
+                }
+            });
+
+            cy.on('mouseout', 'node.technology', function(evt){
+                cy.elements().removeClass('highlighted');
+            });
+        }
+
+        main();
+    </script>
+</body>
+</html>

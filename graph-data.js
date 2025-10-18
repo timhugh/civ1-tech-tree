@@ -1,0 +1,84 @@
+// graph-data.js
+
+const techTree = [
+    // Ancient Era
+    { id: "Alphabet", name: "Alphabet", prereqs: [] },
+    { id: "BronzeWorking", name: "Bronze Working", prereqs: [], unlocks: [{ id: "ColossusWonder", name: "Colossus", type: "wonder" }, { id: "PhalanxUnit", name: "Phalanx", type: "unit" }] },
+    { id: "CeremonialBurial", name: "Ceremonial Burial", prereqs: [], unlocks: [{ id: "TempleBuilding", name: "Temple", type: "building" }] },
+    { id: "CodeOfLaws", name: "Code of Laws", prereqs: ["Alphabet"], unlocks: [{ id: "CourthouseBuilding", name: "Courthouse", type: "building" }] },
+    { id: "HorsebackRiding", name: "Horseback Riding", prereqs: [], unlocks: [{ id: "CavalryUnit", name: "Cavalry", type: "unit" }] },
+    { id: "IronWorking", name: "Iron Working", prereqs: ["BronzeWorking"], unlocks: [{ id: "LegionUnit", name: "Legion", type: "unit" }] },
+    { id: "Masonry", name: "Masonry", prereqs: [], unlocks: [{ id: "PalaceBuilding", name: "Palace", type: "building" }, { id: "CityWallsBuilding", name: "City Walls", type: "building" }, { id: "PyramidsWonder", name: "Pyramids", type: "wonder" }, { id: "GreatWallWonder", name: "Great Wall", type: "wonder" }] },
+    { id: "Mathematics", name: "Mathematics", prereqs: ["Alphabet"], unlocks: [{ id: "CatapultUnit", name: "Catapult", type: "unit" }] },
+    { id: "Mysticism", name: "Mysticism", prereqs: ["CeremonialBurial"], unlocks: [{ id: "OracleWonder", name: "Oracle", type: "wonder" }] },
+    { id: "Pottery", name: "Pottery", prereqs: [], unlocks: [{ id: "GranaryBuilding", name: "Granary", type: "building" }, { id: "HangingGardensWonder", name: "Hanging Gardens", type: "wonder" }] },
+    { id: "TheWheel", name: "The Wheel", prereqs: [], unlocks: [{ id: "ChariotUnit", name: "Chariot", type: "unit" }] },
+    { id: "Writing", name: "Writing", prereqs: ["Alphabet"], unlocks: [{ id: "LibraryBuilding", name: "Library", type: "building" }, { id: "DiplomatUnit", name: "Diplomat", type: "unit" }] },
+
+    // Classical Era
+    { id: "Astronomy", name: "Astronomy", prereqs: ["Mathematics", "Mysticism"], unlocks: [{ id: "CopernicusObservatoryWonder", name: "Copernicus' Observatory", type: "wonder" }] },
+    { id: "Construction", name: "Construction", prereqs: ["Currency", "Masonry"], unlocks: [{ id: "AqueductBuilding", name: "Aqueduct", type: "building" }, { id: "ColosseumBuilding", name: "Colosseum", type: "building" }, { id: "FortressUnit", name: "Fortress", type: "unit" }] },
+    { id: "Currency", name: "Currency", prereqs: ["BronzeWorking"], unlocks: [{ id: "MarketplaceBuilding", name: "Marketplace", type: "building" }] },
+    { id: "Engineering", name: "Engineering", prereqs: ["Construction", "TheWheel"], },
+    { id: "Literacy", name: "Literacy", prereqs: ["CodeOfLaws", "Writing"], unlocks: [{ id: "GreatLibraryWonder", name: "Great Library", type: "wonder" }] },
+    { id: "MapMaking", name: "Map Making", prereqs: ["Alphabet"], unlocks: [{ id: "LighthouseWonder", name: "Lighthouse", type: "wonder" }, { id: "TriremeUnit", name: "Trireme", type: "unit" }] },
+    { id: "Monarchy", name: "Monarchy", prereqs: ["CodeOfLaws", "CeremonialBurial"] },
+    { id: "Philosophy", name: "Philosophy", prereqs: ["Literacy", "Mysticism"] },
+    { id: "TheRepublic", name: "The Republic", prereqs: ["CodeOfLaws", "Literacy"] },
+    { id: "Trade", name: "Trade", prereqs: ["CodeOfLaws", "Currency"], unlocks: [{ id: "CaravanUnit", name: "Caravan", type: "unit" }] },
+
+    // Medieval Era
+    { id: "Banking", name: "Banking", prereqs: ["TheRepublic", "Trade"], unlocks: [{ id: "BankBuilding", name: "Bank", type: "building" }] },
+    { id: "BridgeBuilding", name: "Bridge Building", prereqs: ["Construction", "IronWorking"] },
+    { id: "Chivalry", name: "Chivalry", prereqs: ["Feudalism", "HorsebackRiding"], unlocks: [{ id: "KnightUnit", name: "Knight", type: "unit" }] },
+    { id: "Feudalism", name: "Feudalism", prereqs: ["Masonry", "Monarchy"] },
+    { id: "Invention", name: "Invention", prereqs: ["Engineering", "Literacy"] },
+    { id: "Medicine", name: "Medicine", prereqs: ["Philosophy", "Trade"], unlocks: [{ id: "ShakespearesTheaterWonder", name: "Shakespeare's Theater", type: "wonder" }] },
+    { id: "Navigation", name: "Navigation", prereqs: ["Astronomy", "MapMaking"], unlocks: [{ id: "MagellansExpeditionWonder", name: "Magellan's Expedition", type: "wonder" }, { id: "SailUnit", name: "Sail", type: "unit" }] },
+    { id: "Religion", name: "Religion", prereqs: ["Philosophy", "Writing"], unlocks: [{ id: "JSBachsCathedralWonder", name: "JS Bach's Cathedral", type: "wonder" }, { id: "MichelangelosChapelWonder", name: "Michelangelo's Chapel", type: "wonder" }, { id: "CathedralBuilding", name: "Cathedral", type: "building" }] },
+    { id: "University", name: "University", prereqs: ["Mathematics", "Philosophy"], unlocks: [{ id: "UniversityBuilding", name: "University", type: "building" }] },
+
+    // Renaissance Era
+    { id: "Chemistry", name: "Chemistry", prereqs: ["Medicine", "University"] },
+    { id: "Democracy", name: "Democracy", prereqs: ["Literacy", "Philosophy"] },
+    { id: "Gunpowder", name: "Gunpowder", prereqs: ["Invention", "IronWorking"], unlocks: [{ id: "MusketeersUnit", name: "Musketeers", type: "unit" }] },
+    { id: "Magnetism", name: "Magnetism", prereqs: ["Physics", "Navigation"], unlocks: [{ id: "FrigateUnit", name: "Frigate", type: "unit" }] },
+    { id: "Metallurgy", name: "Metallurgy", prereqs: ["Gunpowder", "University"], unlocks: [{ id: "CannonUnit", name: "Cannon", type: "unit" }] },
+    { id: "Physics", name: "Physics", prereqs: ["Mathematics", "Navigation"] },
+    { id: "TheoryOfGravity", name: "Theory of Gravity", prereqs: ["Astronomy", "University"], unlocks: [{ id: "IsaacNewtonsCollegeWonder", name: "Isaac Newton's College", type: "wonder" }] },
+
+    // Industrial Era
+    { id: "AtomicTheory", name: "Atomic Theory", prereqs: ["Physics", "TheoryOfGravity"] },
+    { id: "Communism", name: "Communism", prereqs: ["Industrialization", "Philosophy"], unlocks: [{ id: "UnitedNationsWonder", name: "United Nations", type: "wonder" }] },
+    { id: "Conscription", name: "Conscription", prereqs: ["Explosives", "TheRepublic"], unlocks: [{ id: "RiflemenUnit", name: "Riflemen", type: "unit" }] },
+    { id: "Electricity", name: "Electricity", prereqs: ["Magnetism", "Metallurgy"] },
+    { id: "Explosives", name: "Explosives", prereqs: ["Chemistry", "Gunpowder"] },
+    { id: "Industrialization", name: "Industrialization", prereqs: ["Banking", "Railroad"], unlocks: [{ id: "FactoryBuilding", name: "Factory", type: "building" }, { id: "TransportUnit", name: "Transport", type: "unit" }, { id: "WomensSuffrageWonder", name: "Women's Suffrage", type: "wonder" }] },
+    { id: "Railroad", name: "Railroad", prereqs: ["BridgeBuilding", "SteamEngine"], unlocks: [{ id: "DarwinsVoyageWonder", name: "Darwin's Voyage", type: "wonder" }] },
+    { id: "SteamEngine", name: "Steam Engine", prereqs: ["Invention", "Physics"], unlocks: [{ id: "IroncladUnit", name: "Ironclad", type: "unit" }] },
+    { id: "TheCorporation", name: "The Corporation", prereqs: ["Banking", "Industrialization"] },
+
+    // Modern Era
+    { id: "AdvancedFlight", name: "Advanced Flight", prereqs: ["Electricity", "Flight"], unlocks: [{ id: "BomberUnit", name: "Bomber", type: "unit" }, { id: "CarrierUnit", name: "Carrier", type: "unit" }] },
+    { id: "Automobile", name: "Automobile", prereqs: ["Steel", "Combustion"], unlocks: [{ id: "ArmorUnit", name: "Armor", type: "unit" }] },
+    { id: "Combustion", name: "Combustion", prereqs: ["Refining", "Explosives"], unlocks: [{ id: "CruiserUnit", name: "Cruiser", type: "unit" }] },
+    { id: "Computers", name: "Computers", prereqs: ["Electronics", "Mathematics"], unlocks: [{ id: "SETIProgramWonder", name: "SETI Program", type: "wonder" }] },
+    { id: "Electronics", name: "Electronics", prereqs: ["Electricity", "Engineering"], unlocks: [{ id: "HydroPlantBuilding", name: "Hydro Plant", type: "building" }, { id: "HooverDamWonder", name: "Hoover Dam", type: "wonder" }] },
+    { id: "Flight", name: "Flight", prereqs: ["Physics", "Combustion"], unlocks: [{ id: "FighterUnit", name: "Fighter", type: "unit" }] },
+    { id: "LaborUnion", name: "Labor Union", prereqs: ["Communism", "MassProduction"], unlocks: [{ id: "MechInfantryUnit", name: "Mech. Infantry", type: "unit" }] },
+    { id: "MassProduction", name: "Mass Production", prereqs: ["Automobile", "TheCorporation"], unlocks: [{ id: "MassTransitBuilding", name: "Mass Transit", type: "building" }, { id: "SubmarineUnit", name: "Submarine", type: "unit" }] },
+    { id: "NuclearFission", name: "Nuclear Fission", prereqs: ["AtomicTheory", "MassProduction"], unlocks: [{ id: "ManhattanProjectWonder", name: "Manhattan Project", type: "wonder" }] },
+    { id: "Refining", name: "Refining", prereqs: ["Chemistry", "TheCorporation"], unlocks: [{ id: "PowerPlantBuilding", name: "Power Plant", type: "building" }] },
+    { id: "Rocketry", name: "Rocketry", prereqs: ["AdvancedFlight", "Electronics"], unlocks: [{ id: "NuclearUnit", name: "Nuclear", type: "unit" }] },
+    { id: "Steel", name: "Steel", prereqs: ["Industrialization", "Metallurgy"], unlocks: [{ id: "BattleshipUnit", name: "Battleship", type: "unit" }] },
+
+    // Future Tech
+    { id: "FusionPower", name: "Fusion Power", prereqs: ["NuclearPower", "SuperConductor"] },
+    { id: "GeneticEngineering", name: "Genetic Engineering", prereqs: ["Medicine", "TheCorporation"], unlocks: [{ id: "CureForCancerWonder", name: "Cure for Cancer", type: "wonder" }] },
+    { id: "NuclearPower", name: "Nuclear Power", prereqs: ["NuclearFission", "Electronics"], unlocks: [{ id: "NuclearPlantBuilding", name: "Nuclear Plant", type: "building" }] },
+    { id: "Plastics", name: "Plastics", prereqs: ["SpaceFlight", "Refining"], unlocks: [{ id: "SSComponent", name: "SS Component", type: "spaceshippart" }] },
+    { id: "Recycling", name: "Recycling", prereqs: ["Democracy", "MassProduction"], unlocks: [{ id: "RecyclingCenterBuilding", name: "Recycling Center", type: "building" }] },
+    { id: "Robotics", name: "Robotics", prereqs: ["Computers", "Plastics"], unlocks: [{ id: "MfgPlantBuilding", name: "Mfg. Plant", type: "building" }, { id: "ArtilleryUnit", name: "Artillery", type: "unit" }, { id: "SSModule", name: "SS Module", type: "spaceshippart" }] },
+    { id: "SpaceFlight", name: "Space Flight", prereqs: ["Rocketry", "NuclearFission"], unlocks: [{ id: "ApolloProgramWonder", name: "Apollo Program", type: "wonder" }, { id: "SSStructure", name: "SS Structure", type: "spaceshippart" }] },
+    { id: "SuperConductor", name: "Super Conductor", prereqs: ["Plastics", "MassProduction"], unlocks: [{ id: "SDIDefenseBuilding", name: "SDI Defense", type: "building" }] }
+];
