@@ -3,299 +3,300 @@ config:
   layout: elk
   elk:
     mergeEdges: false
-    nodePlacementStrategy: SIMPLE
+    nodePlacementStrategy: NETWORK_SIMPLEX
 ---
 flowchart LR
-  classDef technology fill:#f9f,stroke:#333,stroke-width:1px;
-  classDef building fill:#9f9,stroke:#333,stroke-width:1px;
-  classDef wonder fill:#ff9,stroke:#333,stroke-width:1px;
-  classDef unit fill:#99f,stroke:#333,stroke-width:1px;
-  classDef spaceshippart fill:#f99,stroke:#333,stroke-width:1px
+  classDef default stroke:#333,stroke-width:1px,font-size:14px;
+  classDef technology fill:#9c9,font-size:16px,font-weight:bold;
+  classDef building fill:#ccc;
+  classDef wonder fill:#cc9;
+  classDef unit fill:#99c;
+  classDef spaceshippart fill:#c99;
 
   %% Technologies
-  AdvancedFlightTech["Advanced Flight"]
+  AdvancedFlightTech("Advanced Flight")
   class AdvancedFlightTech technology
-  AlphabetTech["Alphabet"]
+  AlphabetTech("Alphabet")
   class AlphabetTech technology
-  AstronomyTech["Astronomy"]
+  AstronomyTech("Astronomy")
   class AstronomyTech technology
-  AtomicTheory["Atomic Theory"]
-  class AtomicTheory technology
-  AutomobileTech["Automobile"]
+  AtomicTheoryTech("Atomic Theory")
+  class AtomicTheoryTech technology
+  AutomobileTech("Automobile")
   class AutomobileTech technology
-  BankingTech["Banking"]
+  BankingTech("Banking")
   class BankingTech technology
-  BridgeBuildingTech["Bridge Building"]
+  BridgeBuildingTech("Bridge Building")
   class BridgeBuildingTech technology
-  BronzeWorkingTech["Bronze Working"]
+  BronzeWorkingTech("Bronze Working")
   class BronzeWorkingTech technology
-  CeremonialBurialTech["Ceremonial Burial"]
+  CeremonialBurialTech("Ceremonial Burial")
   class CeremonialBurialTech technology
-  ChemistryTech["Chemistry"]
+  ChemistryTech("Chemistry")
   class ChemistryTech technology
-  ChivalryTech["Chivalry"]
+  ChivalryTech("Chivalry")
   class ChivalryTech technology
-  CodeOfLawsTech["Code of Laws"]
+  CodeOfLawsTech("Code of Laws")
   class CodeOfLawsTech technology
-  CombustionTech["Combustion"]
+  CombustionTech("Combustion")
   class CombustionTech technology
-  CommunismTech["Communism"]
+  CommunismTech("Communism")
   class CommunismTech technology
-  ComputersTech["Computers"]
+  ComputersTech("Computers")
   class ComputersTech technology
-  ConscriptionTech["Conscription"]
+  ConscriptionTech("Conscription")
   class ConscriptionTech technology
-  ConstructionTech["Construction"]
+  ConstructionTech("Construction")
   class ConstructionTech technology
-  CurrencyTech["Currency"]
+  CurrencyTech("Currency")
   class CurrencyTech technology
-  DemocracyTech["Democracy"]
+  DemocracyTech("Democracy")
   class DemocracyTech technology
-  ElectricityTech["Electricity"]
+  ElectricityTech("Electricity")
   class ElectricityTech technology
-  ElectronicsTech["Electronics"]
+  ElectronicsTech("Electronics")
   class ElectronicsTech technology
-  EngineeringTech["Engineering"]
+  EngineeringTech("Engineering")
   class EngineeringTech technology
-  ExplosivesTech["Explosives"]
+  ExplosivesTech("Explosives")
   class ExplosivesTech technology
-  FeudalismTech["Feudalism"]
+  FeudalismTech("Feudalism")
   class FeudalismTech technology
-  FlightTech["Flight"]
+  FlightTech("Flight")
   class FlightTech technology
-  FusionPowerTech["Fusion Power"]
+  FusionPowerTech("Fusion Power")
   class FusionPowerTech technology
-  GeneticEngineeringTech["Genetic Engineering"]
+  GeneticEngineeringTech("Genetic Engineering")
   class GeneticEngineeringTech technology
-  GunpowderTech["Gunpowder"]
+  GunpowderTech("Gunpowder")
   class GunpowderTech technology
-  HorsebackRidingTech["Horseback Riding"]
+  HorsebackRidingTech("Horseback Riding")
   class HorsebackRidingTech technology
-  IndustrializationTech["Industrialization"]
+  IndustrializationTech("Industrialization")
   class IndustrializationTech technology
-  InventionTech["Invention"]
+  InventionTech("Invention")
   class InventionTech technology
-  IronWorkingTech["Iron Working"]
+  IronWorkingTech("Iron Working")
   class IronWorkingTech technology
-  LaborUnionTech["Labor Union"]
+  LaborUnionTech("Labor Union")
   class LaborUnionTech technology
-  LiteracyTech["Literacy"]
+  LiteracyTech("Literacy")
   class LiteracyTech technology
-  MagnetismTech["Magnetism"]
+  MagnetismTech("Magnetism")
   class MagnetismTech technology
-  MapMakingTech["Map Making"]
+  MapMakingTech("Map Making")
   class MapMakingTech technology
-  MasonryTech["Masonry"]
+  MasonryTech("Masonry")
   class MasonryTech technology
-  MassProductionTech["Mass Production"]
+  MassProductionTech("Mass Production")
   class MassProductionTech technology
-  MathematicsTech["Mathematics"]
+  MathematicsTech("Mathematics")
   class MathematicsTech technology
-  MedicineTech["Medicine"]
+  MedicineTech("Medicine")
   class MedicineTech technology
-  MetallurgyTech["Metallurgy"]
+  MetallurgyTech("Metallurgy")
   class MetallurgyTech technology
-  MonarchyTech["Monarchy"]
+  MonarchyTech("Monarchy")
   class MonarchyTech technology
-  MysticismTech["Mysticism"]
+  MysticismTech("Mysticism")
   class MysticismTech technology
-  NavigationTech["Navigation"]
+  NavigationTech("Navigation")
   class NavigationTech technology
-  NuclearFissionTech["Nuclear Fission"]
+  NuclearFissionTech("Nuclear Fission")
   class NuclearFissionTech technology
-  NuclearPowerTech["Nuclear Power"]
+  NuclearPowerTech("Nuclear Power")
   class NuclearPowerTech technology
-  PhilosophyTech["Philosophy"]
+  PhilosophyTech("Philosophy")
   class PhilosophyTech technology
-  PhysicsTech["Physics"]
+  PhysicsTech("Physics")
   class PhysicsTech technology
-  PlasticsTech["Plastics"]
+  PlasticsTech("Plastics")
   class PlasticsTech technology
-  PotteryTech["Pottery"]
+  PotteryTech("Pottery")
   class PotteryTech technology
-  RailroadTech["Railroad"]
+  RailroadTech("Railroad")
   class RailroadTech technology
-  RecyclingTech["Recycling"]
+  RecyclingTech("Recycling")
   class RecyclingTech technology
-  RefiningTech["Refining"]
+  RefiningTech("Refining")
   class RefiningTech technology
-  ReligionTech["Religion"]
+  ReligionTech("Religion")
   class ReligionTech technology
-  RoboticsTech["Robotics"]
+  RoboticsTech("Robotics")
   class RoboticsTech technology
-  RocketryTech["Rocketry"]
+  RocketryTech("Rocketry")
   class RocketryTech technology
-  SpaceFlightTech["Space Flight"]
+  SpaceFlightTech("Space Flight")
   class SpaceFlightTech technology
-  SteamEngineTech["Steam Engine"]
+  SteamEngineTech("Steam Engine")
   class SteamEngineTech technology
-  SteelTech["Steel"]
+  SteelTech("Steel")
   class SteelTech technology
-  SuperConductorTech["Super Conductor"]
+  SuperConductorTech("Super Conductor")
   class SuperConductorTech technology
-  TheCorporationTech["The Corporation"]
+  TheCorporationTech("The Corporation")
   class TheCorporationTech technology
-  TheRepublicTech["The Republic"]
+  TheRepublicTech("The Republic")
   class TheRepublicTech technology
-  TheWheelTech["The Wheel"]
+  TheWheelTech("The Wheel")
   class TheWheelTech technology
-  TheoryOfGravityTech["Theory of Gravity"]
+  TheoryOfGravityTech("Theory of Gravity")
   class TheoryOfGravityTech technology
-  TradeTech["Trade"]
+  TradeTech("Trade")
   class TradeTech technology
-  UniversityTech["University"]
+  UniversityTech("University")
   class UniversityTech technology
-  WritingTech["Writing"]
+  WritingTech("Writing")
   class WritingTech technology
 
   %% Buildings
-  AqueductBuilding["Aqueduct"]
+  AqueductBuilding("Aqueduct")
   class AqueductBuilding building
-  BankBuilding["Bank"]
+  BankBuilding("Bank")
   class BankBuilding building
-  CathedralBuilding["Cathedral"]
+  CathedralBuilding("Cathedral")
   class CathedralBuilding building
-  CityWallsBuilding["City Walls"]
+  CityWallsBuilding("City Walls")
   class CityWallsBuilding building
-  ColosseumBuilding["Colosseum"]
+  ColosseumBuilding("Colosseum")
   class ColosseumBuilding building
-  CourthouseBuilding["Courthouse"]
+  CourthouseBuilding("Courthouse")
   class CourthouseBuilding building
-  FactoryBuilding["Factory"]
+  FactoryBuilding("Factory")
   class FactoryBuilding building
-  GranaryBuilding["Granary"]
+  GranaryBuilding("Granary")
   class GranaryBuilding building
-  HydroPlantBuilding["Hydro Plant"]
+  HydroPlantBuilding("Hydro Plant")
   class HydroPlantBuilding building
-  LibraryBuilding["Library"]
+  LibraryBuilding("Library")
   class LibraryBuilding building
-  MarketplaceBuilding["Marketplace"]
+  MarketplaceBuilding("Marketplace")
   class MarketplaceBuilding building
-  MassTransitBuilding["Mass Transit"]
+  MassTransitBuilding("Mass Transit")
   class MassTransitBuilding building
-  MfgPlantBuilding["Manufacturing Plant"]
+  MfgPlantBuilding("Manufacturing Plant")
   class MfgPlantBuilding building
-  NuclearPlantBuilding["Nuclear Plant"]
+  NuclearPlantBuilding("Nuclear Plant")
   class NuclearPlantBuilding building
-  PalaceBuilding["Palace"]
+  PalaceBuilding("Palace")
   class PalaceBuilding building
-  PowerPlantBuilding["Power Plant"]
+  PowerPlantBuilding("Power Plant")
   class PowerPlantBuilding building
-  RecyclingCenterBuilding["Recycling Center"]
+  RecyclingCenterBuilding("Recycling Center")
   class RecyclingCenterBuilding building
-  SDIDefenseBuilding["SDI Defense"]
+  SDIDefenseBuilding("SDI Defense")
   class SDIDefenseBuilding building
-  TempleBuilding["Temple"]
+  TempleBuilding("Temple")
   class TempleBuilding building
-  UniversityBuilding["University"]
+  UniversityBuilding("University")
   class UniversityBuilding building
 
   %% Wonders
-  ApolloProgramWonder["Apollo Program"]
+  ApolloProgramWonder("Apollo Program")
   class ApolloProgramWonder wonder
-  ColossusWonder["Colossus"]
+  ColossusWonder("Colossus")
   class ColossusWonder wonder
-  CopernicusObservatoryWonder["Copernicus' Observatory"]
+  CopernicusObservatoryWonder("Copernicus' Observatory")
   class CopernicusObservatoryWonder wonder
-  CureForCancerWonder["Cure for Cancer"]
+  CureForCancerWonder("Cure for Cancer")
   class CureForCancerWonder wonder
-  DarwinsVoyageWonder["Darwin's Voyage"]
+  DarwinsVoyageWonder("Darwin's Voyage")
   class DarwinsVoyageWonder wonder
-  GreatLibraryWonder["Great Library"]
+  GreatLibraryWonder("Great Library")
   class GreatLibraryWonder wonder
-  GreatWallWonder["Great Wall"]
+  GreatWallWonder("Great Wall")
   class GreatWallWonder wonder
-  HangingGardensWonder["Hanging Gardens"]
+  HangingGardensWonder("Hanging Gardens")
   class HangingGardensWonder wonder
-  HooverDamWonder["Hoover Dam"]
+  HooverDamWonder("Hoover Dam")
   class HooverDamWonder wonder
-  IsaacNewtonsCollegeWonder["Isaac Newton's College"]
+  IsaacNewtonsCollegeWonder("Isaac Newton's College")
   class IsaacNewtonsCollegeWonder wonder
-  JSBachsCathedralWonder["JS Bach's Cathedral"]
+  JSBachsCathedralWonder("JS Bach's Cathedral")
   class JSBachsCathedralWonder wonder
-  LighthouseWonder["Lighthouse"]
+  LighthouseWonder("Lighthouse")
   class LighthouseWonder wonder
-  MagellansExpeditionWonder["Magellan's Expedition"]
+  MagellansExpeditionWonder("Magellan's Expedition")
   class MagellansExpeditionWonder wonder
-  ManhattanProjectWonder["Manhattan Project"]
+  ManhattanProjectWonder("Manhattan Project")
   class ManhattanProjectWonder wonder
-  MichelangelosChapelWonder["Michelangelo's Chapel"]
+  MichelangelosChapelWonder("Michelangelo's Chapel")
   class MichelangelosChapelWonder wonder
-  OracleWonder["Oracle"]
+  OracleWonder("Oracle")
   class OracleWonder wonder
-  PyramidsWonder["Pyramids"]
+  PyramidsWonder("Pyramids")
   class PyramidsWonder wonder
-  SETIProgramWonder["SETI Program"]
+  SETIProgramWonder("SETI Program")
   class SETIProgramWonder wonder
-  ShakespearesTheaterWonder["Shakespeare's Theater"]
+  ShakespearesTheaterWonder("Shakespeare's Theater")
   class ShakespearesTheaterWonder wonder
-  UnitedNationsWonder["United Nations"]
+  UnitedNationsWonder("United Nations")
   class UnitedNationsWonder wonder
-  WomensSuffrageWonder["Women's Suffrage"]
+  WomensSuffrageWonder("Women's Suffrage")
   class WomensSuffrageWonder wonder
 
   %% Units
-  ArmorUnit["Armor Unit"]
+  ArmorUnit("Armor Unit")
   class ArmorUnit unit
-  ArtilleryUnit["Artillery Unit"]
+  ArtilleryUnit("Artillery Unit")
   class ArtilleryUnit unit
-  BattleshipUnit["Battleship Unit"]
+  BattleshipUnit("Battleship Unit")
   class BattleshipUnit unit
-  BomberUnit["Bomber Unit"]
+  BomberUnit("Bomber Unit")
   class BomberUnit unit
-  CannonUnit["Cannon Unit"]
+  CannonUnit("Cannon Unit")
   class CannonUnit unit
-  CaravanUnit["Caravan Unit"]
+  CaravanUnit("Caravan Unit")
   class CaravanUnit unit
-  CarrierUnit["Carrier Unit"]
+  CarrierUnit("Carrier Unit")
   class CarrierUnit unit
-  CatapultUnit["Catapult Unit"]
+  CatapultUnit("Catapult Unit")
   class CatapultUnit unit
-  CavalryUnit["Cavalry Unit"]
+  CavalryUnit("Cavalry Unit")
   class CavalryUnit unit
-  ChariotUnit["Chariot Unit"]
+  ChariotUnit("Chariot Unit")
   class ChariotUnit unit
-  CruiserUnit["Cruiser Unit"]
+  CruiserUnit("Cruiser Unit")
   class CruiserUnit unit
-  DiplomatUnit["Diplomat Unit"]
+  DiplomatUnit("Diplomat Unit")
   class DiplomatUnit unit
-  FighterUnit["Fighter Unit"]
+  FighterUnit("Fighter Unit")
   class FighterUnit unit
-  FortressUnit["Fortress Unit"]
+  FortressUnit("Fortress Unit")
   class FortressUnit unit
-  FrigateUnit["Frigate Unit"]
+  FrigateUnit("Frigate Unit")
   class FrigateUnit unit
-  IroncladUnit["Ironclad Unit"]
+  IroncladUnit("Ironclad Unit")
   class IroncladUnit unit
-  KnightUnit["Knight Unit"]
+  KnightUnit("Knight Unit")
   class KnightUnit unit
-  LegionUnit["Legion Unit"]
+  LegionUnit("Legion Unit")
   class LegionUnit unit
-  MechInfantryUnit["Mech Infantry Unit"]
+  MechInfantryUnit("Mech Infantry Unit")
   class MechInfantryUnit unit
-  MusketeersUnit["Musketeers Unit"]
+  MusketeersUnit("Musketeers Unit")
   class MusketeersUnit unit
-  NuclearUnit["Nuclear Unit"]
+  NuclearUnit("Nuclear Unit")
   class NuclearUnit unit
-  PhalanxUnit["Phalanx Unit"]
+  PhalanxUnit("Phalanx Unit")
   class PhalanxUnit unit
-  RiflemenUnit["Riflemen Unit"]
+  RiflemenUnit("Riflemen Unit")
   class RiflemenUnit unit
-  SailUnit["Sail Unit"]
+  SailUnit("Sail Unit")
   class SailUnit unit
-  SubmarineUnit["Submarine Unit"]
+  SubmarineUnit("Submarine Unit")
   class SubmarineUnit unit
-  TransportUnit["Transport Unit"]
+  TransportUnit("Transport Unit")
   class TransportUnit unit
-  TriremeUnit["Trireme Unit"]
+  TriremeUnit("Trireme Unit")
   class TriremeUnit unit
 
   %% Spaceship Parts
-  SSStructure["SS Structure"]
+  SSStructure("SS Structure")
   class SSStructure spaceshippart
-  SSComponent["SS Component"]
+  SSComponent("SS Component")
   class SSComponent spaceshippart
-  SSModule["SS Module"]
+  SSModule("SS Module")
   class SSModule spaceshippart
 
   %% Technology Dependencies
