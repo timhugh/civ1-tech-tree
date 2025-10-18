@@ -1,0 +1,351 @@
+---
+config:
+  layout: elk
+  elk:
+    mergeEdges: false
+    nodePlacementStrategy: SIMPLE
+  theme: redux
+---
+flowchart LR
+  %% Technologies
+  AdvancedFlightTech["Advanced Flight"]
+  AlphabetTech["Alphabet"]
+  AstronomyTech["Astronomy"]
+  AtomicTheory["Atomic Theory"]
+  AutomobileTech["Automobile"]
+  BankingTech["Banking"]
+  BridgeBuilding["Bridge Building"]
+  BronzeWorking["Bronze Working"]
+  CeremonialBurial["Ceremonial Burial"]
+  ChemistryTech["Chemistry"]
+  ChivalryTech["Chivalry"]
+  CodeOfLawsTech["Code of Laws"]
+  CombustionTech["Combustion"]
+  CommunismTech["Communism"]
+  ComputersTech["Computers"]
+  ConscriptionTech["Conscription"]
+  ConstructionTech["Construction"]
+  CurrencyTech["Currency"]
+  DemocracyTech["Democracy"]
+  ElectricityTech["Electricity"]
+  ElectronicsTech["Electronics"]
+  EngineeringTech["Engineering"]
+  ExplosivesTech["Explosives"]
+  FeudalismTech["Feudalism"]
+  FlightTech["Flight"]
+  FusionPowerTech["Fusion Power"]
+  GeneticEngineeringTech["Genetic Engineering"]
+  GunpowderTech["Gunpowder"]
+  HorsebackRidingTech["Horseback Riding"]
+  IndustrializationTech["Industrialization"]
+  InventionTech["Invention"]
+  IronWorkingTech["Iron Working"]
+  LaborUnionTech["Labor Union"]
+  LiteracyTech["Literacy"]
+  MagnetismTech["Magnetism"]
+  MapMakingTech["Map Making"]
+  MasonryTech["Masonry"]
+  MassProductionTech["Mass Production"]
+  MathematicsTech["Mathematics"]
+  MedicineTech["Medicine"]
+  MetallurgyTech["Metallurgy"]
+  MonarchyTech["Monarchy"]
+  MysticismTech["Mysticism"]
+  NavigationTech["Navigation"]
+  NuclearFissionTech["Nuclear Fission"]
+  NuclearPowerTech["Nuclear Power"]
+  PhilosophyTech["Philosophy"]
+  PhysicsTech["Physics"]
+  PlasticsTech["Plastics"]
+  PotteryTech["Pottery"]
+  RailroadTech["Railroad"]
+  RecyclingTech["Recycling"]
+  RefiningTech["Refining"]
+  ReligionTech["Religion"]
+  RoboticsTech["Robotics"]
+  RocketryTech["Rocketry"]
+  SpaceFlightTech["Space Flight"]
+  SteamEngineTech["Steam Engine"]
+  SteelTech["Steel"]
+  SuperConductorTech["Super Conductor"]
+  TheCorporationTech["The Corporation"]
+  TheRepublicTech["The Republic"]
+  TheWheelTech["The Wheel"]
+  TheoryOfGravityTech["Theory of Gravity"]
+  TradeTech["Trade"]
+  UniversityTech["University"]
+  WritingTech["Writing"]
+
+  %% Buildings
+  AqueductBuilding["Aqueduct"]
+  BankBuilding["Bank"]
+  CathedralBuilding["Cathedral"]
+  CityWallsBuilding["City Walls"]
+  ColosseumBuilding["Colosseum"]
+  CourthouseBuilding["Courthouse"]
+  FactoryBuilding["Factory"]
+  GranaryBuilding["Granary"]
+  HydroPlantBuilding["Hydro Plant"]
+  LibraryBuilding["Library"]
+  MarketplaceBuilding["Marketplace"]
+  MassTransitBuilding["Mass Transit"]
+  MfgPlantBuilding["Manufacturing Plant"]
+  NuclearPlantBuilding["Nuclear Plant"]
+  PalaceBuilding["Palace"]
+  PowerPlantBuilding["Power Plant"]
+  RecyclingCenterBuilding["Recycling Center"]
+  SDIDefenseBuilding["SDI Defense"]
+  TempleBuilding["Temple"]
+  UniversityBuilding["University"]
+
+  %% Wonders
+  ApolloProgramWonder["Apollo Program"]
+  ColossusWonder["Colossus"]
+  CopernicusObservatoryWonder["Copernicus' Observatory"]
+  CureForCancerWonder["Cure for Cancer"]
+  DarwinsVoyageWonder["Darwin's Voyage"]
+  GreatLibraryWonder["Great Library"]
+  GreatWallWonder["Great Wall"]
+  HangingGardensWonder["Hanging Gardens"]
+  HooverDamWonder["Hoover Dam"]
+  IsaacNewtonsCollegeWonder["Isaac Newton's College"]
+  JSBachsCathedralWonder["JS Bach's Cathedral"]
+  LighthouseWonder
+  MagellansExpeditionWonder["Magellan's Expedition"]
+  ManhattanProjectWonder["Manhattan Project"]
+  MichelangelosChapelWonder["Michelangelo's Chapel"]
+  OracleWonder["Oracle"]
+  PyramidsWonder["Pyramids"]
+  SETIProgramWonder["SETI Program"]
+  ShakespearesTheaterWonder["Shakespeare's Theater"]
+  UnitedNationsWonder["United Nations"]
+  WomensSuffrageWonder["Women's Suffrage"]
+
+  %% Units
+  ArmorUnit["Armor Unit"]
+  ArtilleryUnit["Artillery Unit"]
+  BattleshipUnit["Battleship Unit"]
+  BomberUnit["Bomber Unit"]
+  CannonUnit["Cannon Unit"]
+  CaravanUnit["Caravan Unit"]
+  CarrierUnit["Carrier Unit"]
+  CatapultUnit["Catapult Unit"]
+  CavalryUnit["Cavalry Unit"]
+  ChariotUnit["Chariot Unit"]
+  CruiserUnit["Cruiser Unit"]
+  DiplomatUnit["Diplomat Unit"]
+  FighterUnit["Fighter Unit"]
+  FortressUnit["Fortress Unit"]
+  FrigateUnit["Frigate Unit"]
+  IroncladUnit["Ironclad Unit"]
+  KnightUnit["Knight Unit"]
+  LegionUnit["Legion Unit"]
+  MechInfantryUnit["Mech Infantry Unit"]
+  MusketeersUnit["Musketeers Unit"]
+  NuclearUnit["Nuclear Unit"]
+  PhalanxUnit["Phalanx Unit"]
+  RiflemenUnit["Riflemen Unit"]
+  SailUnit["Sail Unit"]
+  SubmarineUnit["Submarine Unit"]
+  TransportUnit["Transport Unit"]
+  TriremeUnit["Trireme Unit"]
+
+  %% Spaceship Parts
+  SSStructure["SS Structure"]
+  SSComponent["SS Component"]
+  SSModule["SS Module"]
+
+  %% Technology Dependencies
+  ElectricityTech-->AdvancedFlightTech
+  FlightTech-->AdvancedFlightTech
+  MathematicsTech-->AstronomyTech
+  MysticismTech-->AstronomyTech
+  PhysicsTech-->AtomicTheoryTech
+  TheoryOfGravityTech-->AtomicTheoryTech
+  SteelTech-->AutomobileTech
+  CombustionTech-->AutomobileTech
+  TheRepublicTech-->BankingTech
+  TradeTech-->BankingTech
+  ConstructionTech-->BridgeBuildingTech
+  IronWorkingTech-->BridgeBuildingTech
+  MedicineTech-->ChemistryTech
+  UniversityTech-->ChemistryTech
+  FeudalismTech-->ChivalryTech
+  HorsebackRidingTech-->ChivalryTech
+  AlphabetTech-->CodeOfLawsTech
+  RefiningTech-->CombustionTech
+  ExplosivesTech-->CombustionTech
+  IndustrializationTech-->CommunismTech
+  PhilosophyTech-->CommunismTech
+  ElectronicsTech-->ComputersTech
+  MathematicsTech-->ComputersTech
+  ExplosivesTech-->ConscriptionTech
+  TheRepublicTech-->ConscriptionTech
+  CurrencyTech-->ConstructionTech
+  MasonryTech-->ConstructionTech
+  BronzeWorkingTech-->CurrencyTech
+  LiteracyTech-->DemocracyTech
+  PhilosophyTech-->DemocracyTech
+  MagnetismTech-->ElectricityTech
+  MetallurgyTech-->ElectricityTech
+  ElectricityTech-->ElectronicsTech
+  EngineeringTech-->ElectronicsTech
+  ConstructionTech-->EngineeringTech
+  TheWheelTech-->EngineeringTech
+  ChemistryTech-->ExplosivesTech
+  GunpowderTech-->ExplosivesTech
+  MasonryTech-->FeudalismTech
+  MonarchyTech-->FeudalismTech
+  PhysicsTech-->FlightTech
+  CombustionTech-->FlightTech
+  NuclearPowerTech-->FusionPowerTech
+  SuperConductorTech-->FusionPowerTech
+  MedicineTech-->GeneticEngineeringTech
+  TheCorporationTech-->GeneticEngineeringTech
+  InventionTech-->GunpowderTech
+  IronWorkingTech-->GunpowderTech
+  BankingTech-->IndustrializationTech
+  RailroadTech-->IndustrializationTech
+  EngineeringTech-->InventionTech
+  LiteracyTech-->InventionTech
+  BronzeWorkingTech-->IronWorkingTech
+  CommunismTech-->LaborUnionTech
+  MassProductionTech-->LaborUnionTech
+  CodeOfLawsTech-->LiteracyTech
+  WritingTech-->LiteracyTech
+  PhysicsTech-->MagnetismTech
+  NavigationTech-->MagnetismTech
+  AlphabetTech-->MapMakingTech
+  AutomobileTech-->MassProductionTech
+  TheCorporationTech-->MassProductionTech
+  AlphabetTech-->MathematicsTech
+  WritingTech-->MathematicsTech
+  PhilosophyTech-->MedicineTech
+  TradeTech-->MedicineTech
+  GunpowderTech-->MetallurgyTech
+  UniversityTech-->MetallurgyTech
+  CodeOfLawsTech-->MonarchyTech
+  CeremonialBurialTech-->MonarchyTech
+  CeremonialBurialTech-->MysticismTech
+  AstronomyTech-->NavigationTech
+  MapMakingTech-->NavigationTech
+  AtomicTheoryTech-->NuclearFissionTech
+  MassProductionTech-->NuclearFissionTech
+  NuclearFissionTech-->NuclearPowerTech
+  ElectronicsTech-->NuclearPowerTech
+  LiteracyTech-->PhilosophyTech
+  MysticismTech-->PhilosophyTech
+  MathematicsTech-->PhysicsTech
+  NavigationTech-->PhysicsTech
+  SpaceFlightTech-->PlasticsTech
+  RefiningTech-->PlasticsTech
+  BridgeBuildingTech-->RailroadTech
+  SteamEngineTech-->RailroadTech
+  DemocracyTech-->RecyclingTech
+  MassProductionTech-->RecyclingTech
+  ChemistryTech-->RefiningTech
+  TheCorporationTech-->RefiningTech
+  PhilosophyTech-->ReligionTech
+  WritingTech-->ReligionTech
+  ComputersTech-->RoboticsTech
+  PlasticsTech-->RoboticsTech
+  AdvancedFlightTech-->RocketryTech
+  ElectronicsTech-->RocketryTech
+  RocketryTech-->SpaceFlightTech
+  NuclearFissionTech-->SpaceFlightTech
+  InventionTech-->SteamEngineTech
+  PhysicsTech-->SteamEngineTech
+  IndustrializationTech-->SteelTech
+  MetallurgyTech-->SteelTech
+  PlasticsTech-->SuperConductorTech
+  MassProductionTech-->SuperConductorTech
+  BankingTech-->TheCorporationTech
+  IndustrializationTech-->TheCorporationTech
+  CodeOfLawsTech-->TheRepublicTech
+  LiteracyTech-->TheRepublicTech
+  AstronomyTech-->TheoryOfGravityTech
+  UniversityTech-->TheoryOfGravityTech
+  CodeOfLawsTech-->TradeTech
+  CurrencyTech-->TradeTech
+  MathematicsTech-->UniversityTech
+  PhilosophyTech-->UniversityTech
+  AlphabetTech-->WritingTech
+
+  %% Building Dependencies
+  CeremonialBurialTech-->TempleBuilding
+  PotteryTech-->GranaryBuilding
+  MasonryTech-->PalaceBuilding
+  MasonryTech-->CityWallsBuilding
+  CodeOfLawsTech-->CourthouseBuilding
+  WritingTech-->LibraryBuilding
+  ConstructionTech-->AqueductBuilding
+  ConstructionTech-->ColosseumBuilding
+  CurrencyTech-->MarketplaceBuilding
+  BankingTech-->BankBuilding
+  UniversityTech-->UniversityBuilding
+  ReligionTech-->CathedralBuilding
+  IndustrializationTech-->FactoryBuilding
+  ElectronicsTech-->HydroPlantBuilding
+  RefiningTech-->PowerPlantBuilding
+  MassProductionTech-->MassTransitBuilding
+  RoboticsTech-->MfgPlantBuilding
+  SuperConductorTech-->SDIDefenseBuilding
+  RecyclingTech-->RecyclingCenterBuilding
+  NuclearPowerTech-->NuclearPlantBuilding
+
+  %% Wonder Dependencies
+  PotteryTech-->HangingGardensWonder
+  MasonryTech-->PyramidsWonder
+  MasonryTech-->GreatWallWonder
+  BronzeWorkingTech-->ColossusWonder
+  MysticismTech-->OracleWonder
+  MapMakingTech-->LighthouseWonder
+  AstronomyTech-->CopernicusObservatoryWonder
+  LiteracyTech-->GreatLibraryWonder
+  NavigationTech-->MagellansExpeditionWonder
+  RailroadTech-->DarwinsVoyageWonder
+  MedicineTech-->ShakespearesTheaterWonder
+  ReligionTech-->JSBachsCathedralWonder
+  ReligionTech-->MichelangelosChapelWonder
+  TheoryOfGravityTech-->IsaacNewtonsCollegeWonder
+  IndustrializationTech-->WomensSuffrageWonder
+  ElectronicsTech-->HooverDamWonder
+  CommunismTech-->UnitedNationsWonder
+  ComputersTech-->SETIProgramWonder
+  GeneticEngineeringTech-->CureForCancerWonder
+  SpaceFlightTech-->ApolloProgramWonder
+  NuclearFissionTech-->ManhattanProjectWonder
+
+  %% Unit Dependencies
+  HorsebackRidingTech-->CavalryUnit
+  TheWheelTech-->ChariotUnit
+  BronzeWorkingTech-->PhalanxUnit
+  ChivalryTech-->KnightUnit
+  MapMakingTech-->TriremeUnit
+  WritingTech-->DiplomatUnit
+  ConstructionTech-->FortressUnit
+  IronWorkingTech-->LegionUnit
+  MathematicsTech-->CatapultUnit
+  TradeTech-->CaravanUnit
+  NavigationTech-->SailUnit
+  MagnetismTech-->FrigateUnit
+  SteamEngineTech-->IroncladUnit
+  GunpowderTech-->MusketeersUnit
+  FlightTech-->FighterUnit
+  IndustrializationTech-->TransportUnit
+  MetallurgyTech-->CannonUnit
+  AdvancedFlightTech-->BomberUnit
+  AdvancedFlightTech-->CarrierUnit
+  SteelTech-->BattleshipUnit
+  ConscriptionTech-->RiflemenUnit
+  RocketryTech-->NuclearUnit
+  LaborUnionTech-->MechInfantryUnit
+  AutomobileTech-->ArmorUnit
+  CombustionTech-->CruiserUnit
+  MassProductionTech-->SubmarineUnit
+  RoboticsTech-->ArtilleryUnit
+
+  %% Spaceship Part Dependencies
+  SpaceFlightTech-->SSStructure
+  PlasticsTech-->SSComponent
+  RoboticsTech-->SSModule
