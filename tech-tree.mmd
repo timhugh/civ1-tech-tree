@@ -13,141 +13,313 @@ flowchart LR
   classDef unit fill:#99c;
   classDef spaceshippart fill:#c99;
 
-  %% Technologies
-  AdvancedFlightTech("Advanced Flight")
-  class AdvancedFlightTech technology
+  subgraph Advanced Flight
+    AdvancedFlightTech("Advanced Flight")
+    class AdvancedFlightTech technology
+    AdvancedFlightTech-->BomberUnit
+    AdvancedFlightTech-->CarrierUnit
+  end
   AlphabetTech("Alphabet")
   class AlphabetTech technology
-  AstronomyTech("Astronomy")
-  class AstronomyTech technology
+  subgraph Astronomy
+    AstronomyTech("Astronomy")
+    class AstronomyTech technology
+    AstronomyTech-->CopernicusObservatoryWonder
+  end
   AtomicTheoryTech("Atomic Theory")
   class AtomicTheoryTech technology
-  AutomobileTech("Automobile")
-  class AutomobileTech technology
-  BankingTech("Banking")
-  class BankingTech technology
+  subgraph Automobile
+    AutomobileTech("Automobile")
+    class AutomobileTech technology
+    AutomobileTech-->ArmorUnit
+  end
+  subgraph Banking
+    BankingTech("Banking")
+    class BankingTech technology
+    BankingTech-->BankBuilding
+  end
   BridgeBuildingTech("Bridge Building")
   class BridgeBuildingTech technology
-  BronzeWorkingTech("Bronze Working")
-  class BronzeWorkingTech technology
-  CeremonialBurialTech("Ceremonial Burial")
-  class CeremonialBurialTech technology
+  subgraph Bronze Working
+    BronzeWorkingTech("Bronze Working")
+    class BronzeWorkingTech technology
+    BronzeWorkingTech-->ColossusWonder
+    BronzeWorkingTech-->PhalanxUnit
+  end
+  subgraph Ceremonial Burial
+    CeremonialBurialTech("Ceremonial Burial")
+    class CeremonialBurialTech technology
+    CeremonialBurialTech-->TempleBuilding
+  end
   ChemistryTech("Chemistry")
   class ChemistryTech technology
-  ChivalryTech("Chivalry")
-  class ChivalryTech technology
-  CodeOfLawsTech("Code of Laws")
-  class CodeOfLawsTech technology
-  CombustionTech("Combustion")
-  class CombustionTech technology
-  CommunismTech("Communism")
-  class CommunismTech technology
-  ComputersTech("Computers")
-  class ComputersTech technology
-  ConscriptionTech("Conscription")
-  class ConscriptionTech technology
-  ConstructionTech("Construction")
-  class ConstructionTech technology
-  CurrencyTech("Currency")
-  class CurrencyTech technology
+  subgraph Chivalry
+    ChivalryTech("Chivalry")
+    class ChivalryTech technology
+    ChivalryTech-->KnightUnit
+  end
+  subgraph Code of Laws
+    CodeOfLawsTech("Code of Laws")
+    class CodeOfLawsTech technology
+    CodeOfLawsTech-->CourthouseBuilding
+  end
+  subgraph Combustion
+    CombustionTech("Combustion")
+    class CombustionTech technology
+    CombustionTech-->CruiserUnit
+  end
+  subgraph Communism
+    CommunismTech("Communism")
+    class CommunismTech technology
+    CommunismTech-->UnitedNationsWonder
+  end
+  subgraph Computers
+    ComputersTech("Computers")
+    class ComputersTech technology
+    ComputersTech-->SETIProgramWonder
+  end
+  subgraph Conscription
+    ConscriptionTech("Conscription")
+    class ConscriptionTech technology
+    ConscriptionTech-->RiflemenUnit
+  end
+  subgraph Construction
+    ConstructionTech("Construction")
+    class ConstructionTech technology
+    ConstructionTech-->AqueductBuilding
+    ConstructionTech-->ColosseumBuilding
+    ConstructionTech-->FortressUnit
+  end
+  subgraph Currency
+    CurrencyTech("Currency")
+    class CurrencyTech technology
+    CurrencyTech-->MarketplaceBuilding
+  end
   DemocracyTech("Democracy")
   class DemocracyTech technology
   ElectricityTech("Electricity")
   class ElectricityTech technology
-  ElectronicsTech("Electronics")
-  class ElectronicsTech technology
+  subgraph Electronics
+    ElectronicsTech("Electronics")
+    class ElectronicsTech technology
+    ElectronicsTech-->HydroPlantBuilding
+    ElectronicsTech-->HooverDamWonder
+  end
   EngineeringTech("Engineering")
   class EngineeringTech technology
   ExplosivesTech("Explosives")
   class ExplosivesTech technology
   FeudalismTech("Feudalism")
   class FeudalismTech technology
-  FlightTech("Flight")
-  class FlightTech technology
+  subgraph Flight
+    FlightTech("Flight")
+    class FlightTech technology
+    FlightTech-->FighterUnit
+  end
   FusionPowerTech("Fusion Power")
   class FusionPowerTech technology
-  GeneticEngineeringTech("Genetic Engineering")
-  class GeneticEngineeringTech technology
-  GunpowderTech("Gunpowder")
-  class GunpowderTech technology
-  HorsebackRidingTech("Horseback Riding")
-  class HorsebackRidingTech technology
-  IndustrializationTech("Industrialization")
-  class IndustrializationTech technology
+  subgraph Genetic Engineering
+    GeneticEngineeringTech("Genetic Engineering")
+    class GeneticEngineeringTech technology
+    GeneticEngineeringTech-->CureForCancerWonder
+  end
+  subgraph Gunpowder
+    GunpowderTech("Gunpowder")
+    class GunpowderTech technology
+    GunpowderTech-->MusketeersUnit
+  end
+  subgraph Horseback Riding
+    HorsebackRidingTech("Horseback Riding")
+    class HorsebackRidingTech technology
+    HorsebackRidingTech-->CavalryUnit
+  end
+  subgraph Industrialization
+    IndustrializationTech("Industrialization")
+    class IndustrializationTech technology
+    IndustrializationTech-->FactoryBuilding
+    IndustrializationTech-->TransportUnit
+    IndustrializationTech-->WomensSuffrageWonder
+  end
   InventionTech("Invention")
   class InventionTech technology
-  IronWorkingTech("Iron Working")
-  class IronWorkingTech technology
-  LaborUnionTech("Labor Union")
-  class LaborUnionTech technology
-  LiteracyTech("Literacy")
-  class LiteracyTech technology
-  MagnetismTech("Magnetism")
-  class MagnetismTech technology
-  MapMakingTech("Map Making")
-  class MapMakingTech technology
-  MasonryTech("Masonry")
-  class MasonryTech technology
-  MassProductionTech("Mass Production")
-  class MassProductionTech technology
-  MathematicsTech("Mathematics")
-  class MathematicsTech technology
-  MedicineTech("Medicine")
-  class MedicineTech technology
-  MetallurgyTech("Metallurgy")
-  class MetallurgyTech technology
+  subgraph Iron Working
+    IronWorkingTech("Iron Working")
+    class IronWorkingTech technology
+    IronWorkingTech-->LegionUnit
+  end
+  subgraph Labor Union
+    LaborUnionTech("Labor Union")
+    class LaborUnionTech technology
+    LaborUnionTech-->MechInfantryUnit
+  end
+  subgraph Literacy
+    LiteracyTech("Literacy")
+    class LiteracyTech technology
+    LiteracyTech-->GreatLibraryWonder
+  end
+  subgraph Magnetism
+    MagnetismTech("Magnetism")
+    class MagnetismTech technology
+    MagnetismTech-->FrigateUnit
+  end
+  subgraph Map Making
+    MapMakingTech("Map Making")
+    class MapMakingTech technology
+    MapMakingTech-->LighthouseWonder
+    MapMakingTech-->TriremeUnit
+  end
+  subgraph Masonry
+    MasonryTech("Masonry")
+    class MasonryTech technology
+    MasonryTech-->PalaceBuilding
+    MasonryTech-->CityWallsBuilding
+    MasonryTech-->PyramidsWonder
+    MasonryTech-->GreatWallWonder
+  end
+  subgraph Mass Production
+    MassProductionTech("Mass Production")
+    class MassProductionTech technology
+    MassProductionTech-->MassTransitBuilding
+    MassProductionTech-->SubmarineUnit
+  end
+  subgraph Mathematics
+    MathematicsTech("Mathematics")
+    class MathematicsTech technology
+    MathematicsTech-->CatapultUnit
+  end
+  subgraph Medicine
+    MedicineTech("Medicine")
+    class MedicineTech technology
+    MedicineTech-->ShakespearesTheaterWonder
+  end
+  subgraph Metallurgy
+    MetallurgyTech("Metallurgy")
+    class MetallurgyTech technology
+    MetallurgyTech-->CannonUnit
+  end
   MonarchyTech("Monarchy")
   class MonarchyTech technology
-  MysticismTech("Mysticism")
-  class MysticismTech technology
-  NavigationTech("Navigation")
-  class NavigationTech technology
-  NuclearFissionTech("Nuclear Fission")
-  class NuclearFissionTech technology
-  NuclearPowerTech("Nuclear Power")
-  class NuclearPowerTech technology
+  subgraph Mysticism
+    MysticismTech("Mysticism")
+    class MysticismTech technology
+    MysticismTech-->OracleWonder
+  end
+  subgraph Navigation
+    NavigationTech("Navigation")
+    class NavigationTech technology
+    NavigationTech-->MagellansExpeditionWonder
+    NavigationTech-->SailUnit
+  end
+  subgraph Nuclear Fission
+    NuclearFissionTech("Nuclear Fission")
+    class NuclearFissionTech technology
+    NuclearFissionTech-->ManhattanProjectWonder
+  end
+  subgraph Nuclear Power
+    NuclearPowerTech("Nuclear Power")
+    class NuclearPowerTech technology
+    NuclearPowerTech-->NuclearPlantBuilding
+  end
   PhilosophyTech("Philosophy")
   class PhilosophyTech technology
   PhysicsTech("Physics")
   class PhysicsTech technology
-  PlasticsTech("Plastics")
-  class PlasticsTech technology
-  PotteryTech("Pottery")
-  class PotteryTech technology
-  RailroadTech("Railroad")
-  class RailroadTech technology
-  RecyclingTech("Recycling")
-  class RecyclingTech technology
-  RefiningTech("Refining")
-  class RefiningTech technology
-  ReligionTech("Religion")
-  class ReligionTech technology
-  RoboticsTech("Robotics")
-  class RoboticsTech technology
-  RocketryTech("Rocketry")
-  class RocketryTech technology
-  SpaceFlightTech("Space Flight")
-  class SpaceFlightTech technology
-  SteamEngineTech("Steam Engine")
-  class SteamEngineTech technology
-  SteelTech("Steel")
-  class SteelTech technology
-  SuperConductorTech("Super Conductor")
-  class SuperConductorTech technology
+  subgraph Plastics
+    PlasticsTech("Plastics")
+    class PlasticsTech technology
+    PlasticsTech-->SSComponent
+  end
+  subgraph Pottery
+    PotteryTech("Pottery")
+    class PotteryTech technology
+    PotteryTech-->GranaryBuilding
+    PotteryTech-->HangingGardensWonder
+  end
+  subgraph Railroad
+    RailroadTech("Railroad")
+    class RailroadTech technology
+    RailroadTech-->DarwinsVoyageWonder
+  end
+  subgraph Recycling
+    RecyclingTech("Recycling")
+    class RecyclingTech technology
+    RecyclingTech-->RecyclingCenterBuilding
+  end
+  subgraph Refining
+    RefiningTech("Refining")
+    class RefiningTech technology
+    RefiningTech-->PowerPlantBuilding
+  end
+  subgraph Religion
+    ReligionTech("Religion")
+    class ReligionTech technology
+    ReligionTech-->JSBachsCathedralWonder
+    ReligionTech-->MichelangelosChapelWonder
+    ReligionTech-->CathedralBuilding
+  end
+  subgraph Robotics
+    RoboticsTech("Robotics")
+    class RoboticsTech technology
+    RoboticsTech-->MfgPlantBuilding
+    RoboticsTech-->ArtilleryUnit
+    RoboticsTech-->SSModule
+  end
+  subgraph Rocketry
+    RocketryTech("Rocketry")
+    class RocketryTech technology
+    RocketryTech-->NuclearUnit
+  end
+  subgraph Space Flight
+    SpaceFlightTech("Space Flight")
+    class SpaceFlightTech technology
+    SpaceFlightTech-->ApolloProgramWonder
+    SpaceFlightTech-->SSStructure
+  end
+  subgraph Steam Engine
+    SteamEngineTech("Steam Engine")
+    class SteamEngineTech technology
+    SteamEngineTech-->IroncladUnit
+  end
+  subgraph Steel
+    SteelTech("Steel")
+    class SteelTech technology
+    SteelTech-->BattleshipUnit
+  end
+  subgraph Super Conductor
+    SuperConductorTech("Super Conductor")
+    class SuperConductorTech technology
+    SuperConductorTech-->SDIDefenseBuilding
+  end
   TheCorporationTech("The Corporation")
   class TheCorporationTech technology
   TheRepublicTech("The Republic")
   class TheRepublicTech technology
-  TheWheelTech("The Wheel")
-  class TheWheelTech technology
-  TheoryOfGravityTech("Theory of Gravity")
-  class TheoryOfGravityTech technology
-  TradeTech("Trade")
-  class TradeTech technology
-  UniversityTech("University")
-  class UniversityTech technology
-  WritingTech("Writing")
-  class WritingTech technology
+  subgraph The Wheel
+    TheWheelTech("The Wheel")
+    class TheWheelTech technology
+    TheWheelTech-->ChariotUnit
+  end
+  subgraph Theory of Gravity
+    TheoryOfGravityTech("Theory of Gravity")
+    class TheoryOfGravityTech technology
+    TheoryOfGravityTech-->IsaacNewtonsCollegeWonder
+  end
+  subgraph Trade
+    TradeTech("Trade")
+    class TradeTech technology
+    TradeTech-->CaravanUnit
+  end
+  subgraph University
+    UniversityTech("University")
+    class UniversityTech technology
+    UniversityTech-->UniversityBuilding
+  end
+  subgraph Writing
+    WritingTech("Writing")
+    class WritingTech technology
+    WritingTech-->LibraryBuilding
+    WritingTech-->DiplomatUnit
+  end
 
   %% Buildings
   AqueductBuilding("Aqueduct")
@@ -415,81 +587,3 @@ flowchart LR
   PhilosophyTech==>UniversityTech
   AlphabetTech==>WritingTech
 
-  %% Building Dependencies
-  CeremonialBurialTech-->TempleBuilding
-  PotteryTech-->GranaryBuilding
-  MasonryTech-->PalaceBuilding
-  MasonryTech-->CityWallsBuilding
-  CodeOfLawsTech-->CourthouseBuilding
-  WritingTech-->LibraryBuilding
-  ConstructionTech-->AqueductBuilding
-  ConstructionTech-->ColosseumBuilding
-  CurrencyTech-->MarketplaceBuilding
-  BankingTech-->BankBuilding
-  UniversityTech-->UniversityBuilding
-  ReligionTech-->CathedralBuilding
-  IndustrializationTech-->FactoryBuilding
-  ElectronicsTech-->HydroPlantBuilding
-  RefiningTech-->PowerPlantBuilding
-  MassProductionTech-->MassTransitBuilding
-  RoboticsTech-->MfgPlantBuilding
-  SuperConductorTech-->SDIDefenseBuilding
-  RecyclingTech-->RecyclingCenterBuilding
-  NuclearPowerTech-->NuclearPlantBuilding
-
-  %% Wonder Dependencies
-  PotteryTech-.->HangingGardensWonder
-  MasonryTech-.->PyramidsWonder
-  MasonryTech-.->GreatWallWonder
-  BronzeWorkingTech-.->ColossusWonder
-  MysticismTech-.->OracleWonder
-  MapMakingTech-.->LighthouseWonder
-  AstronomyTech-.->CopernicusObservatoryWonder
-  LiteracyTech-.->GreatLibraryWonder
-  NavigationTech-.->MagellansExpeditionWonder
-  RailroadTech-.->DarwinsVoyageWonder
-  MedicineTech-.->ShakespearesTheaterWonder
-  ReligionTech-.->JSBachsCathedralWonder
-  ReligionTech-.->MichelangelosChapelWonder
-  TheoryOfGravityTech-.->IsaacNewtonsCollegeWonder
-  IndustrializationTech-.->WomensSuffrageWonder
-  ElectronicsTech-.->HooverDamWonder
-  CommunismTech-.->UnitedNationsWonder
-  ComputersTech-.->SETIProgramWonder
-  GeneticEngineeringTech-.->CureForCancerWonder
-  SpaceFlightTech-.->ApolloProgramWonder
-  NuclearFissionTech-.->ManhattanProjectWonder
-
-  %% Unit Dependencies
-  HorsebackRidingTech-->CavalryUnit
-  TheWheelTech-->ChariotUnit
-  BronzeWorkingTech-->PhalanxUnit
-  ChivalryTech-->KnightUnit
-  MapMakingTech-->TriremeUnit
-  WritingTech-->DiplomatUnit
-  ConstructionTech-->FortressUnit
-  IronWorkingTech-->LegionUnit
-  MathematicsTech-->CatapultUnit
-  TradeTech-->CaravanUnit
-  NavigationTech-->SailUnit
-  MagnetismTech-->FrigateUnit
-  SteamEngineTech-->IroncladUnit
-  GunpowderTech-->MusketeersUnit
-  FlightTech-->FighterUnit
-  IndustrializationTech-->TransportUnit
-  MetallurgyTech-->CannonUnit
-  AdvancedFlightTech-->BomberUnit
-  AdvancedFlightTech-->CarrierUnit
-  SteelTech-->BattleshipUnit
-  ConscriptionTech-->RiflemenUnit
-  RocketryTech-->NuclearUnit
-  LaborUnionTech-->MechInfantryUnit
-  AutomobileTech-->ArmorUnit
-  CombustionTech-->CruiserUnit
-  MassProductionTech-->SubmarineUnit
-  RoboticsTech-->ArtilleryUnit
-
-  %% Spaceship Part Dependencies
-  SpaceFlightTech-.->SSStructure
-  PlasticsTech-.->SSComponent
-  RoboticsTech-.->SSModule
