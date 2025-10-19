@@ -1,0 +1,24 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+}
+
+#search {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	z-index: 10;
+}
+
+#controls {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 10;
+}
+
+#cy {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+}
