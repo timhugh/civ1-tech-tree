@@ -152,7 +152,9 @@ const buildNode = ({ name, type, prereqs, unlocks, parentId }: NodeWithOptionalP
 
 	if (unlocks) {
 		node.classes += ' has-unlocks';
-		unlocks.forEach(unlock => buildNode({ name: unlock.name, type: unlock.type, parentId: node.data.id }));
+		unlocks.forEach(unlock => {
+			elements.push(...buildNode({ name: unlock.name, type: unlock.type, parentId: node.data.id }));
+		});
 	}
 
 	return elements;
@@ -166,7 +168,6 @@ const buildElements = (data: GraphData): NodeDefinition[] => {
 	});
 	return elements;
 };
-
 
 const highlightDependencies = (target: Node) => {
 	clearHighlights();
