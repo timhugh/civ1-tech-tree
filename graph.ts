@@ -145,7 +145,7 @@ const buildNode = ({ name, type, prereqs, unlocks, parentId }: NodeWithOptionalP
 		prereqs.forEach(prereq => {
 			elements.push({
 				group: 'edges',
-				data: { source: prereq, target: node.data.id }
+				data: { source: buildId(prereq), target: node.data.id }
 			});
 		});
 	}
