@@ -1,15 +1,7 @@
 import cytoscape from 'cytoscape';
-import cola from 'cytoscape-cola';
-import dagre from 'cytoscape-dagre';
-import elk from 'cytoscape-elk';
-import fcose from 'cytoscape-fcose';
 import klay from 'cytoscape-klay';
 import { techTree } from './graph-data.js';
 
-cytoscape.use(cola);
-cytoscape.use(dagre);
-cytoscape.use(elk);
-cytoscape.use(fcose);
 cytoscape.use(klay);
 
 const elements = [];
