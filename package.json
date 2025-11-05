@@ -2,7 +2,7 @@
     "name": "civ1",
     "version": "1.0.0",
     "description": "",
-    "main": "graph-data.js",
+    "main": "main.ts",
     "scripts": {
         "build": "tsc && vite build",
         "dev": "vite"
@@ -12,12 +12,9 @@
     "license": "ISC",
     "type": "commonjs",
     "dependencies": {
-        "cytoscape": "^3.33.1",
-        "cytoscape-klay": "^3.1.4",
-        "elkjs": "^0.11.0"
+        "gojs": "^3.1.0"
     },
     "devDependencies": {
-        "@types/cytoscape-klay": "^3.1.5",
         "typescript": "^5.9.3",
         "vite": "^7.1.10"
     }

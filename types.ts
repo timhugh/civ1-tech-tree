@@ -5,11 +5,6 @@ export interface NodeData {
 	unlocks?: NodeData[];
 };
 
-export interface StyleData {
-	[key: string]: any;
-}
-
 export interface GraphData {
-	styles: StyleData;
 	nodes: NodeData[];
 };

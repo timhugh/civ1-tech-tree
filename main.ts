@@ -7,7 +7,7 @@ window.onload = () => {
 	const graph = useGraph(graphContainer, graphData);
 	const searchInput = document.getElementById('search-input') as HTMLInputElement;
 	const searchResultsContainer = document.getElementById('search-results') as HTMLElement;
-	useSearch(searchInput, searchResultsContainer);
+	useSearch(searchInput, searchResultsContainer, graph);
 
 	const resetButton = document.getElementById('reset-button');
 	if (resetButton) {

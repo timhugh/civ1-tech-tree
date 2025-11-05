@@ -1,25 +1,18 @@
 import { type Node } from './graph';
-import * as graph from './graph';
+import { Graph } from './graph';
 
 var instance: Search | null = null;
 
 export const useSearch = (
-	searchInput: HTMLInputElement, 
-	searchResultsContainer: HTMLElement
+	searchInput: HTMLInputElement,
+	searchResultsContainer: HTMLElement,
+	graph: Graph,
 ): Search => {
 	if (!instance) {
-		instance = new Search(searchInput, searchResultsContainer);
+		instance = new Search(searchInput, searchResultsContainer, graph);
 	}
 	return instance;
 }
-
-export const search = (query: string): void => {
-	if (instance) {
-		instance.search(query);
-	} else {
-		console.error('Search instance not initialized. Did you forget to call useSearch()?');
-	}
-};
 
 class Search {
 	searchResults: Node[] = [];
@@ -27,6 +20,7 @@ class Search {
 	constructor(
 		private searchInput: HTMLInputElement,
 		private searchResultsContainer: HTMLElement,
+		private graph: Graph,
 	) {
 		searchInput.addEventListener('input', () => {
 			const query = this.searchInput.value.toLowerCase();
@@ -52,8 +46,8 @@ class Search {
 		}
 
 		this.searchResults.length = 0;
-		graph.getNodes().forEach((node: Node) => {
-			const name = node.data('name').toLowerCase();
+		this.graph.getNodes().forEach((node: Node) => {
+			const name = node.data.name.toLowerCase();
 			if(name.includes(query)) {
 				this.searchResults.push(node);
 			}
@@ -67,7 +61,7 @@ class Search {
 			const resultItem = document.createElement('div');
 			resultItem.textContent = node.data.name;
 			resultItem.addEventListener('click', () => {
-				graph.focus(node);
+				this.graph.focus(node);
 			});
 			this.searchResultsContainer.appendChild(resultItem);
 		});

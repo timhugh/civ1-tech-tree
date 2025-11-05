@@ -1,13 +1,6 @@
 import { GraphData } from "./types";
 
 const data: GraphData = {
-	styles: {
-		"technology": { "background-color": "#9c9" },
-		"building": { "background-color": "#ccc" },
-		"wonder": { "background-color": "#cc9" },
-		"unit": { "background-color": "#99c" },
-		"spaceshippart": { "background-color": "#c99" },
-	},
 	nodes: [
 		{ name: "Advanced Flight", type: 'technology', prereqs: [{ name: "Electricity", type: "technology" }, { name: "Flight", type: "technology" }], unlocks: [{ name: "Bomber", type: "unit" }, { name: "Carrier", type: "unit" }] },
 		{ name: "Alphabet", type: 'technology' },
