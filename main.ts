@@ -1,10 +1,10 @@
-import { useGraph } from './graph';
+import { useDiagram } from './graph';
 import { useSearch } from './search';
 import graphData from './graph-data';
 
 window.onload = () => {
 	const graphContainer = document.getElementById('graph') as HTMLElement;
-	const graph = useGraph(graphContainer, graphData);
+	const graph = useDiagram(graphContainer, graphData);
 	const searchInput = document.getElementById('search-input') as HTMLInputElement;
 	const searchResultsContainer = document.getElementById('search-results') as HTMLElement;
 	useSearch(searchInput, searchResultsContainer, graph);

@@ -1,12 +1,12 @@
 import { type Node } from './graph';
-import { Graph } from './graph';
+import { Diagram } from './graph';
 
 var instance: Search | null = null;
 
 export const useSearch = (
 	searchInput: HTMLInputElement,
 	searchResultsContainer: HTMLElement,
-	graph: Graph,
+	graph: Diagram,
 ): Search => {
 	if (!instance) {
 		instance = new Search(searchInput, searchResultsContainer, graph);
@@ -20,7 +20,7 @@ class Search {
 	constructor(
 		private searchInput: HTMLInputElement,
 		private searchResultsContainer: HTMLElement,
-		private graph: Graph,
+		private graph: Diagram,
 	) {
 		searchInput.addEventListener('input', () => {
 			const query = this.searchInput.value.toLowerCase();

@@ -5,7 +5,8 @@
     "main": "main.ts",
     "scripts": {
         "build": "tsc && vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "test": "vitest run"
     },
     "keywords": [],
     "author": "",
@@ -16,6 +17,7 @@
     },
     "devDependencies": {
         "typescript": "^5.9.3",
-        "vite": "^7.1.10"
+        "vite": "^7.1.10",
+        "vitest": "^4.0.7"
     }
 }

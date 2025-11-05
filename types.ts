@@ -1,3 +1,7 @@
+export interface GraphData {
+	nodes: NodeData[];
+};
+
 export interface NodeData {
 	name: string;
 	type: string;
@@ -5,6 +9,12 @@ export interface NodeData {
 	unlocks?: NodeData[];
 };
 
-export interface GraphData {
-	nodes: NodeData[];
-};
+export type NodeId = string;
+
+export interface Node {
+	id: NodeId;
+	name: string;
+	type: string;
+	completed: boolean;
+	highlighted: boolean;
+}
