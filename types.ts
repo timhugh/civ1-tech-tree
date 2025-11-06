@@ -1,5 +1,15 @@
 export interface GraphData {
+	styles: StylesData;
 	nodes: NodeData[];
+};
+
+export interface StylesData {
+	light: ThemeData;
+	dark: ThemeData;
+};
+
+export interface ThemeData {
+	[theme: string]: string;
 };
 
 export interface NodeData {
@@ -16,5 +26,15 @@ export interface Node {
 	name: string;
 	type: string;
 	completed: boolean;
-	highlighted: boolean;
+	selected: boolean;
+	required: boolean;
+	parents: Array<Node>;
+	children: Array<Node>;
+	unlocks: Array<Node>;
+	group?: Node;
 }
+
+export interface NodeMap {
+	[id: string]: Node;
+}
+

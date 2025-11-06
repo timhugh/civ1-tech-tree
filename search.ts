@@ -1,26 +1,14 @@
-import { type Node } from './graph';
-import { Diagram } from './graph';
+import { Diagram } from './diagram';
+import { Node } from './types';
 
-var instance: Search | null = null;
-
-export const useSearch = (
-	searchInput: HTMLInputElement,
-	searchResultsContainer: HTMLElement,
-	graph: Diagram,
-): Search => {
-	if (!instance) {
-		instance = new Search(searchInput, searchResultsContainer, graph);
-	}
-	return instance;
-}
-
-class Search {
+export class Search {
 	searchResults: Node[] = [];
 
 	constructor(
 		private searchInput: HTMLInputElement,
+		private clearButton: HTMLButtonElement,
 		private searchResultsContainer: HTMLElement,
-		private graph: Diagram,
+		private diagram: Diagram,
 	) {
 		searchInput.addEventListener('input', () => {
 			const query = this.searchInput.value.toLowerCase();
@@ -35,8 +23,15 @@ class Search {
 		searchInput.addEventListener('keypress', (e) => {
 			if (e.key === 'Enter' && this.searchResults.length > 0) {
 				const firstResult = this.searchResults[0];
-				graph.focus(firstResult);
+				diagram.focusNode(firstResult);
 			}
+		});
+
+		clearButton.addEventListener('click', () => {
+			this.searchInput.value = '';
+			this.searchResults.length = 0;
+			this.render();
+			diagram.unfocus();
 		});
 	}
 
@@ -46,12 +41,11 @@ class Search {
 		}
 
 		this.searchResults.length = 0;
-		this.graph.getNodes().forEach((node: Node) => {
-			const name = node.data.name.toLowerCase();
-			if(name.includes(query)) {
-				this.searchResults.push(node);
-			}
+		const results = this.diagram.filterNodes((node: Node) => {
+			const name = node.name.toLowerCase();
+			return name.includes(query);
 		});
+		this.searchResults.push(...results);
 		this.render();
 	}
 
@@ -59,9 +53,9 @@ class Search {
 		this.searchResultsContainer.innerHTML = '';
 		this.searchResults.forEach(node => {
 			const resultItem = document.createElement('div');
-			resultItem.textContent = node.data.name;
+			resultItem.textContent = node.name;
 			resultItem.addEventListener('click', () => {
-				this.graph.focus(node);
+				this.diagram.focusNode(node);
 			});
 			this.searchResultsContainer.appendChild(resultItem);
 		});

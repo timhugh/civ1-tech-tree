@@ -1,160 +1,126 @@
-import { GraphData, NodeData, NodeId, Node } from './types';
+import { GraphData, NodeData, NodeId, Node, NodeMap as Graph } from './types';
 
-export interface GraphNode extends Node {
-	parents: Array<NodeId>;
-	children: Array<NodeId>;
-	group: Array<NodeId>;
+export function generateNodeId(nodeData: NodeData): NodeId {
+	return `${nodeData.type}_${nodeData.name}`
+		.toLowerCase()
+		.replace(/[^a-z]/gi, '_');
 }
 
-export interface GraphNodeMap {
-	[id: string]: GraphNode;
-}
-
-export class Graph {
-	private nodes: GraphNodeMap = {};
-
-	constructor(private graphData: GraphData) {
-		this.build();
-	}
-
-	get(node: NodeId): GraphNode | undefined {
-		return this.nodes[node];
-	}
-
-	require(node: NodeId): GraphNode {
-		const found = this.get(node);
-		if (!found) throw new Error(`Node with id ${node} does not exist in the graph.`);
-		return found;
-	}
-
-	getAll(): Array<GraphNode> {
-		return Object.values(this.nodes);
-	}
-
-	parents(start: NodeId): Array<GraphNode> {
-		const node = this.require(start);
-		return node.parents.map(parentId => this.get(parentId) as GraphNode);
-	}
-
-	children(start: NodeId): Array<GraphNode> {
-		const node = this.require(start);
-		return node.children.map(childId => this.get(childId) as GraphNode);
-	}
-
-	ancestors(startId: NodeId): Array<GraphNode> {
-		const ancestors: GraphNode[] = [];
-		this.traverse(startId, 'up', (node: GraphNode) => {
-			if (node.id !== startId) {
-				ancestors.push(node);
-			}
-		});
+export function traverseAncestors(node: Node): Node[];
+export function traverseAncestors(node: Node, callback: (node: Node) => void): void;
+export function traverseAncestors(node: Node, callback?: (node: Node) => void): void | Node[] {
+	const visited: Set<NodeId> = new Set();
+	const ancestors: Node[] = [];
+	const visit = (n: Node) => {
+		if (visited.has(n.id)) return;
+		visited.add(n.id);
+		n.parents.forEach(visit);
+		if (callback) {
+			callback(n);
+		} else {
+			ancestors.push(n);
+		}
+	};
+	visit(node);
+	if (!callback) {
 		return ancestors;
 	}
+}
 
-	descendants(startId: NodeId): Array<GraphNode> {
-		const descendants: GraphNode[] = [];
-		this.traverse(startId, 'down', (node: GraphNode) => {
-			if (node.id !== startId) {
-				descendants.push(node);
-			}
-		});
+export function traverseDescendants(node: Node): Node[];
+export function traverseDescendants(node: Node, callback: (node: Node) => void): void;
+export function traverseDescendants(node: Node, callback?: (node: Node) => void): void | Node[] {
+	const visited: Set<NodeId> = new Set();
+	const descendants: Node[] = [];
+	const visit = (n: Node) => {
+		if (visited.has(n.id)) return;
+		visited.add(n.id);
+		n.children.forEach(visit);
+		n.unlocks.forEach(visit);
+		if (callback) {
+			callback(n);
+		} else {
+			descendants.push(n);
+		}
+	};
+	visit(node);
+	if (!callback) {
 		return descendants;
 	}
+}
 
-	traverse(startId: NodeId, direction: 'up' | 'down', visit: (node: GraphNode) => void): void {
-		this.require(startId);
+export function build(graphData: GraphData): Graph {
+	const graph: Graph = {};
 
-		const getNextIds = direction === 'up'
-			? (node: GraphNode) => node.parents
-			: (node: GraphNode) => [...node.children, ...node.group];
-
-		const visited = new Set<NodeId>();
-		const stack: Array<NodeId> = [startId];
-
-		while (stack.length > 0) {
-			const id = stack.pop()!;
-			if (visited.has(id)) continue;
-			visited.add(id);
-
-			const node = this.get(id);
-			if (node) {
-				visit(node);
-				stack.push(...getNextIds(node));
-			}
+	const createNode = (nodeData: NodeData): void => {
+		const nodeId = generateNodeId(nodeData);
+		if (graph[nodeId]) {
+			throw new Error(`Duplicate node detected: ${nodeId}`);
 		}
-	}
-
-	private build(): void {
-		this.graphData.nodes.forEach((data: NodeData) => {
-			const node = this.buildAndMergeNode(data);
-
-			data.prereqs?.forEach((prereqData: NodeData) => {
-				const prereqNode = this.buildAndMergeNode(prereqData);
-				node.parents.push(prereqNode.id);
-				prereqNode.children.push(node.id);
-				this.nodes[prereqNode.id] = prereqNode;
-			});
-
-			data.unlocks?.forEach((unlockData: NodeData) => {
-				const unlockNode = this.buildAndMergeNode(unlockData);
-				node.group.push(unlockNode.id);
-				unlockNode.parents.push(node.id);
-				this.nodes[unlockNode.id] = unlockNode;
-			});
-
-			this.nodes[node.id] = node;
-		});
-		this.validate();
-	}
-
-	private validate(): void {
-		const visited = new Set<NodeId>();
-		const stack = new Set<NodeId>();
-		const errors: string[] = [];
-
-		const visit = (node: GraphNode) => {
-			if (visited.has(node.id)) return;
-			stack.add(node.id);
-			visited.add(node.id);
-
-			[...node.children, ...node.group].forEach(childId => {
-				const childNode = this.get(childId);
-				if (childNode) {
-					if (stack.has(childNode.id)) {
-						errors.push(`Cycle detected: invalid dependency from ${childNode.type} ${childNode.name} to ${node.type} ${node.name}`);
-						return;
-					}
-					visit(childNode);
-				}
-			});
-
-			stack.delete(node.id);
-		};
-
-		Object.values(this.nodes).forEach(node => {
-			visit(node);
-		});
-
-		if (errors.length > 0) {
-			throw new Error(errors.join('; '));
-		}
-	}
-
-	private buildAndMergeNode(data: NodeData): GraphNode {
-		return Object.assign(this.nodes[this.buildNodeId(data)] || {
-			parents: [],
-			children: [],
-			group: [],
-		}, {
-			id: this.buildNodeId(data),
-			name: data.name,
-			type: data.type,
+		graph[nodeId] = {
+			id: nodeId,
+			name: nodeData.name,
+			type: nodeData.type,
 			completed: false,
 			highlighted: false,
+			selected: false,
+			parents: [],
+			children: [],
+			unlocks: [],
+		};
+		if (nodeData.unlocks) nodeData.unlocks.forEach(createNode);
+	};
+
+	const createLinks = (nodeData: NodeData): void => {
+		const nodeId = generateNodeId(nodeData);
+		const node = graph[nodeId];
+
+		if (nodeData.prereqs) {
+			nodeData.prereqs.forEach((prereqData: NodeData) => {
+				const prereqId = generateNodeId(prereqData);
+				const prereqNode = graph[prereqId];
+				if (!prereqNode) {
+					throw new Error(`${nodeData.type} ${nodeData.name} depends on missing prerequisite: ${prereqData.type} ${prereqData.name}`);
+				}
+				node.parents.push(prereqNode);
+				prereqNode.children.push(node);
+			});
+		}
+
+		if (nodeData.unlocks) {
+			nodeData.unlocks.forEach((unlockData: NodeData) => {
+				const unlockId = generateNodeId(unlockData);
+				const unlockNode = graph[unlockId];
+				unlockNode.group = node;
+				unlockNode.parents.push(node);
+				node.unlocks.push(unlockNode);
+			});
+		}
+	};
+
+	graphData.nodes.forEach(createNode);
+	graphData.nodes.forEach(createLinks);
+
+	const errors: string[] = [];
+	const visited: Set<NodeId> = new Set();
+	const stack: Set<NodeId> = new Set();
+	const visit = (node: Node) => {
+		if (visited.has(node.id)) return;
+		visited.add(node.id);
+		stack.add(node.id);
+		[...node.children, ...node.unlocks].forEach((child) => {
+			if (stack.has(child.id)) {
+				errors.push(`Invalid dependency from ${child.type} ${child.name} to ${node.type} ${node.name}`);
+				return;
+			}
+			visit(child)
 		});
+		stack.delete(node.id);
+	}
+	Object.values(graph).forEach(visit);
+	if (errors.length > 0) {
+		throw new Error(`Graph contains cycles:\n${errors.join('\n')}`);
 	}
 
-	private buildNodeId(data: NodeData): string {
-		return `${data.type}-${data.name}`.toLowerCase().replace(/\s+/g, '-');
-	}
+	return graph;
 }

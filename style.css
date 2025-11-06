@@ -1,6 +1,11 @@
-body {
+body, html {
 	font-family: sans-serif;
 	margin: 0;
+	padding: 0;
+}
+
+* {
+	box-sizing: border-box;
 }
 
 #search {
@@ -17,8 +22,11 @@ body {
 	z-index: 10;
 }
 
-#graph {
-	width: 100vw;
-	height: 100vh;
+#diagram {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100dvw;
+	height: 100dvh;
 	display: block;
 }

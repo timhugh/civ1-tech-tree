@@ -1,233 +1,368 @@
 import { describe, expect, test } from 'vitest';
 import { GraphData } from './types';
-import { Graph, type GraphNode } from './graph';
+import * as graph from './graph';
 
 const graphData: GraphData = {
 	nodes: [
-		{ name: "Alphabet", type: "tech" },
-		{ name: "Code of Laws", type: "tech", prereqs: [{ name: "Alphabet", type: "tech" }], unlocks: [{ name: "Courthouse", type: "building" }] },
-		{ name: "Writing", type: "tech", prereqs: [{ name: "Alphabet", type: "tech" }], unlocks: [{ name: "Library", type: "building" }, { name: "Diplomat", type: "unit" }] },
-		{ name: "Literacy", type: "tech", prereqs: [{ name: "Writing", type: "tech" }, { name: "Code of Laws", type: "tech"}], unlocks: [{ name: "Great Library", type: "wonder" }] },
+		{ name: "Alphabet", type: "technology" },
+		{ name: "Code of Laws", type: "technology", prereqs: [{ name: "Alphabet", type: "technology" }], unlocks: [{ name: "Courthouse", type: "building" }] },
+		{ name: "Writing", type: "technology", prereqs: [{ name: "Alphabet", type: "technology" }], unlocks: [{ name: "Library", type: "building" }, { name: "Diplomat", type: "unit" }] },
+		{ name: "Literacy", type: "technology", prereqs: [{ name: "Writing", type: "technology" }, { name: "Code of Laws", type: "technology"}], unlocks: [{ name: "Great Library", type: "wonder" }] },
 	]
 };
 
 const graphDataWithMultipleGraphs: GraphData = {
 	nodes: [
-		{ name: "Pottery", type: "tech", unlocks: [{ name: "Granary", type: "building" }, { name: "Hanging Gardens", type: "wonder" }] },
-		{ name: "Alphabet", type: "tech" },
-		{ name: "Code of Laws", type: "tech", prereqs: [{ name: "Alphabet", type: "tech" }], unlocks: [{ name: "Courthouse", type: "building" }] },
-		{ name: "Bronze Working", type: "tech", unlocks: [{ name: "Phalanx", type: "unit" }, { name: "Colossus", type: "wonder" }] },
-		{ name: "Iron Working", type: "tech", prereqs: [{ name: "Bronze Working", type: "tech" }], unlocks: [{ name: "Legion", type: "unit" }] },
-		{ name: "Currency", type: "tech", prereqs: [{ name: "Bronze Working", type: "tech" }], unlocks: [{ name: "Market", type: "building" }] },
+		{ name: "Pottery", type: "technology", unlocks: [{ name: "Granary", type: "building" }, { name: "Hanging Gardens", type: "wonder" }] },
+		{ name: "Alphabet", type: "technology" },
+		{ name: "Code of Laws", type: "technology", prereqs: [{ name: "Alphabet", type: "technology" }], unlocks: [{ name: "Courthouse", type: "building" }] },
+		{ name: "Bronze Working", type: "technology", unlocks: [{ name: "Phalanx", type: "unit" }, { name: "Colossus", type: "wonder" }] },
+		{ name: "Iron Working", type: "technology", prereqs: [{ name: "Bronze Working", type: "technology" }], unlocks: [{ name: "Legion", type: "unit" }] },
+		{ name: "Currency", type: "technology", prereqs: [{ name: "Bronze Working", type: "technology" }], unlocks: [{ name: "Market", type: "building" }] },
 	]
 };
 
 const graphDataWithCycles: GraphData = {
 	nodes: [
-		{ name: "A", type: "tech" },
-		{ name: "B", type: "tech", prereqs: [{ name: "A", type: "tech" }, { name: "D", type: "unit" }, { name: "G", type: "tech" }] },
-		{ name: "C", type: "tech", prereqs: [{ name: "B", type: "tech" }], unlocks: [{ name: "D", type: "unit" }] },
-		{ name: "E", type: "tech", prereqs: [{ name: "B", type: "tech" }] },
-		{ name: "F", type: "tech", prereqs: [{ name: "A", type: "tech" }] },
-		{ name: "G", type: "tech", prereqs: [{ name: "F", type: "tech" }, { name: "E", type: "tech" }] },
+		{ name: "A", type: "technology" },
+		{ name: "B", type: "technology", prereqs: [{ name: "A", type: "technology" }, { name: "D", type: "unit" }, { name: "G", type: "technology" }] },
+		{ name: "C", type: "technology", prereqs: [{ name: "B", type: "technology" }], unlocks: [{ name: "D", type: "unit" }] },
+		{ name: "E", type: "technology", prereqs: [{ name: "B", type: "technology" }] },
+		{ name: "F", type: "technology", prereqs: [{ name: "A", type: "technology" }] },
+		{ name: "G", type: "technology", prereqs: [{ name: "F", type: "technology" }, { name: "E", type: "technology" }] },
 	]
 };
 
-describe('Graph', () => {
-	describe('initialization', () => {
-		test('builds expected graph', () => {
-			const graph = new Graph(graphData);
-			const nodeAlphabet = graph.get('tech-alphabet');
-			const nodeCodeOfLaws = graph.get('tech-code-of-laws');
-			const nodeWriting = graph.get('tech-writing');
-			const nodeLiteracy = graph.get('tech-literacy');
-			const nodeCourthouse = graph.get('building-courthouse');
-			const nodeLibrary = graph.get('building-library');
-			const nodeDiplomat = graph.get('unit-diplomat');
-			const nodeGreatLibrary = graph.get('wonder-great-library');
+describe('buildGraph', () => {
+	test('builds a simple graph', () => {
+		const g = graph.build(graphData);
+		expect(Object.keys(g).length).toBe(8);
 
-			expect(nodeAlphabet).toBeDefined();
-			expect(nodeAlphabet!.parents).toHaveLength(0);
-			expect(nodeAlphabet!.children).toContain(nodeCodeOfLaws!.id);
-			expect(nodeAlphabet!.children).toContain(nodeWriting!.id);
-			expect(nodeAlphabet!.group).toHaveLength(0);
+		const alphabet = g['technology_alphabet'];
+		const codeOfLaws = g['technology_code_of_laws'];
+		const writing = g['technology_writing'];
+		const literacy = g['technology_literacy'];
+		const courthouse = g['building_courthouse'];
+		const library = g['building_library'];
+		const diplomat = g['unit_diplomat'];
+		const greatLibrary = g['wonder_great_library'];
 
-			expect(nodeCodeOfLaws).toBeDefined();
-			expect(nodeCodeOfLaws!.parents).toContain(nodeAlphabet!.id);
-			expect(nodeCodeOfLaws!.children).toContain(nodeLiteracy!.id);
-			expect(nodeCodeOfLaws!.group).toContain(nodeCourthouse!.id);
-
-			expect(nodeWriting).toBeDefined();
-			expect(nodeWriting!.parents).toContain(nodeAlphabet!.id);
-			expect(nodeWriting!.children).toContain(nodeLiteracy!.id);
-			expect(nodeWriting!.group).toContain(nodeLibrary!.id);
-			expect(nodeWriting!.group).toContain(nodeDiplomat!.id);
-
-			expect(nodeLiteracy).toBeDefined();
-			expect(nodeLiteracy!.parents).toContain(nodeWriting!.id);
-			expect(nodeLiteracy!.parents).toContain(nodeCodeOfLaws!.id);
-			expect(nodeLiteracy!.children).toHaveLength(0);
-			expect(nodeLiteracy!.group).toContain(nodeGreatLibrary!.id);
+		expect(alphabet).toEqual({
+			id: 'technology_alphabet',
+			name: 'Alphabet',
+			type: 'technology',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: [],
+			children: expect.arrayContaining([codeOfLaws]),
+			unlocks: [],
 		});
-
-		test('handles disconnected graphs', () => {
-			const graph = new Graph(graphDataWithMultipleGraphs);
-			const nodePottery = graph.get('tech-pottery');
-			const nodeGranary = graph.get('building-granary');
-			const nodeHangingGardens = graph.get('wonder-hanging-gardens');
-			const nodeAlphabet = graph.get('tech-alphabet');
-			const nodeCodeOfLaws = graph.get('tech-code-of-laws');
-			const nodeBronzeWorking = graph.get('tech-bronze-working');
-			const nodeIronWorking = graph.get('tech-iron-working');
-			const nodeCurrency = graph.get('tech-currency');
-			const nodePhalanx = graph.get('unit-phalanx');
-			const nodeColossus = graph.get('wonder-colossus');
-			const nodeLegion = graph.get('unit-legion');
-			const nodeMarket = graph.get('building-market');
-
-			expect(nodePottery).toBeDefined();
-			expect(nodePottery!.parents).toHaveLength(0);
-			expect(nodePottery!.children).toHaveLength(0);
-			expect(nodePottery!.group).toContain(nodeGranary!.id);
-			expect(nodePottery!.group).toContain(nodeHangingGardens!.id);
-
-			expect(nodeAlphabet).toBeDefined();
-			expect(nodeAlphabet!.parents).toHaveLength(0);
-			expect(nodeAlphabet!.children).toContain(nodeCodeOfLaws!.id);
-
-			expect(nodeBronzeWorking).toBeDefined();
-			expect(nodeBronzeWorking!.parents).toHaveLength(0);
-			expect(nodeBronzeWorking!.children).toContain(nodeIronWorking!.id);
-			expect(nodeBronzeWorking!.children).toContain(nodeCurrency!.id);
-			expect(nodeBronzeWorking!.group).toContain(nodePhalanx!.id);
-			expect(nodeBronzeWorking!.group).toContain(nodeColossus!.id);
-
-			expect(nodeIronWorking).toBeDefined();
-			expect(nodeIronWorking!.parents).toContain(nodeBronzeWorking!.id);
-			expect(nodeIronWorking!.children).toHaveLength(0);
-			expect(nodeIronWorking!.group).toContain(nodeLegion!.id);
-
-			expect(nodeCurrency).toBeDefined();
-			expect(nodeCurrency!.parents).toContain(nodeBronzeWorking!.id);
-			expect(nodeCurrency!.children).toHaveLength(0);
-			expect(nodeCurrency!.group).toContain(nodeMarket!.id);
+		expect(codeOfLaws).toEqual({
+			id: 'technology_code_of_laws',
+			name: 'Code of Laws',
+			type: 'technology',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([alphabet]),
+			children: expect.arrayContaining([literacy]),
+			unlocks: expect.arrayContaining([courthouse]),
 		});
-
-		test('detects cycles', () => {
-			var error: Error | undefined;
-			try {
-				new Graph(graphDataWithCycles);
-			} catch (e) {
-				error = e as Error;
-			}
-			expect(error).toBeDefined();
-			expect(error!.message).toMatch(/Cycle detected: invalid dependency from tech B to unit D/);
-			expect(error!.message).toMatch(/Cycle detected: invalid dependency from tech B to tech G/);
+		expect(courthouse).toEqual({
+			id: 'building_courthouse',
+			name: 'Courthouse',
+			type: 'building',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([codeOfLaws]),
+			children: [],
+			unlocks: [],
+			group: codeOfLaws,
+		});
+		expect(writing).toEqual({
+			id: 'technology_writing',
+			name: 'Writing',
+			type: 'technology',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([alphabet]),
+			children: expect.arrayContaining([literacy]),
+			unlocks: expect.arrayContaining([library, diplomat]),
+		});
+		expect(literacy).toEqual({
+			id: 'technology_literacy',
+			name: 'Literacy',
+			type: 'technology',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([writing, codeOfLaws]),
+			children: [],
+			unlocks: expect.arrayContaining([greatLibrary]),
 		});
 	});
 
-	describe('traversing', () => {
-		test('gets parents', () => {
-			const graph = new Graph(graphData);
-			const parents = graph.parents('tech-literacy');
-			expect(parents.length).toBe(2);
-			const parentIds = parents.map(node => node.id);
-			expect(parentIds).toContain('tech-writing');
-			expect(parentIds).toContain('tech-code-of-laws');
+	test('builds a graph with multiple disconnected subgraphs', () => {
+		const g = graph.build(graphDataWithMultipleGraphs);
+		expect(Object.keys(g).length).toBe(13);
+
+		const pottery = g['technology_pottery'];
+		const granary = g['building_granary'];
+		const hangingGardens = g['wonder_hanging_gardens'];
+
+		const alphabet = g['technology_alphabet'];
+		const codeOfLaws = g['technology_code_of_laws'];
+		const courthouse = g['building_courthouse'];
+
+		const bronzeWorking = g['technology_bronze_working'];
+		const phalanx = g['unit_phalanx'];
+		const colossus = g['wonder_colossus'];
+		const ironWorking = g['technology_iron_working'];
+		const legion = g['unit_legion'];
+		const currency = g['technology_currency'];
+		const market = g['building_market'];
+
+		expect(pottery).toEqual({
+			id: 'technology_pottery',
+			name: 'Pottery',
+			type: 'technology',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: [],
+			children: [],
+			unlocks: expect.arrayContaining([granary, hangingGardens]),
+		});
+		expect(granary).toEqual({
+			id: 'building_granary',
+			name: 'Granary',
+			type: 'building',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([pottery]),
+			children: [],
+			unlocks: [],
+			group: pottery,
+		});
+		expect(hangingGardens).toEqual({
+			id: 'wonder_hanging_gardens',
+			name: 'Hanging Gardens',
+			type: 'wonder',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([pottery]),
+			children: [],
+			unlocks: [],
+			group: pottery,
 		});
 
-		test('errors on getting parents of non-existent node', () => {
-			const graph = new Graph(graphData);
-			expect(() => {
-				graph.parents('non-existent-node');
-			}).toThrow('Node with id non-existent-node does not exist in the graph.');
+		expect(alphabet).toEqual({
+			id: 'technology_alphabet',
+			name: 'Alphabet',
+			type: 'technology',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: [],
+			children: expect.arrayContaining([codeOfLaws]),
+			unlocks: [],
+		});
+		expect(codeOfLaws).toEqual({
+			id: 'technology_code_of_laws',
+			name: 'Code of Laws',
+			type: 'technology',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([alphabet]),
+			children: [],
+			unlocks: expect.arrayContaining([courthouse]),
+		});
+		expect(courthouse).toEqual({
+			id: 'building_courthouse',
+			name: 'Courthouse',
+			type: 'building',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([codeOfLaws]),
+			children: [],
+			unlocks: [],
+			group: codeOfLaws,
 		});
 
-		test('gets children', () => {
-			const graph = new Graph(graphData);
-			const children = graph.children('tech-writing');
-			expect(children.length).toBe(1);
-			expect(children[0].id).toBe('tech-literacy');
+		expect(bronzeWorking).toEqual({
+			id: 'technology_bronze_working',
+			name: 'Bronze Working',
+			type: 'technology',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: [],
+			children: expect.arrayContaining([ironWorking]),
+			unlocks: expect.arrayContaining([phalanx, colossus]),
+		});
+		expect(phalanx).toEqual({
+			id: 'unit_phalanx',
+			name: 'Phalanx',
+			type: 'unit',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([bronzeWorking]),
+			children: [],
+			unlocks: [],
+			group: bronzeWorking,
+		});
+		expect(colossus).toEqual({
+			id: 'wonder_colossus',
+			name: 'Colossus',
+			type: 'wonder',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([bronzeWorking]),
+			children: [],
+			unlocks: [],
+			group: bronzeWorking,
+		});
+		expect(ironWorking).toEqual({
+			id: 'technology_iron_working',
+			name: 'Iron Working',
+			type: 'technology',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([bronzeWorking]),
+			children: [],
+			unlocks: expect.arrayContaining([legion]),
+		});
+		expect(legion).toEqual({
+			id: 'unit_legion',
+			name: 'Legion',
+			type: 'unit',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([ironWorking]),
+			children: [],
+			unlocks: [],
+			group: ironWorking,
+		});
+		expect(currency).toEqual({
+			id: 'technology_currency',
+			name: 'Currency',
+			type: 'technology',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([bronzeWorking]),
+			children: [],
+			unlocks: expect.arrayContaining([market]),
+		});
+		expect(market).toEqual({
+			id: 'building_market',
+			name: 'Market',
+			type: 'building',
+			completed: false,
+			highlighted: false,
+			selected: false,
+			parents: expect.arrayContaining([currency]),
+			children: [],
+			unlocks: [],
+			group: currency,
+		});
+	});
+
+	test('detects cycles in graph', () => {
+		var error: Error | undefined;
+		try {
+			graph.build(graphDataWithCycles);
+		} catch (e) {
+			error = e as Error;
+		}
+		expect(error).toBeDefined();
+		expect(error!.message).toMatch('Graph contains cycles');
+		expect(error!.message).toMatch('Invalid dependency from technology B to unit D');
+		expect(error!.message).toMatch('Invalid dependency from technology B to technology G');
+	});
+
+	test('detects missing prerequisites', () => {
+		const graphWithMissingNode: GraphData = {
+			nodes: [
+				{ name: "Tech1", type: "technology", prereqs: [{ name: "NonExistentTech", type: "technology" }] },
+			]
+		};
+		expect(() => graph.build(graphWithMissingNode))
+			.toThrowError('technology Tech1 depends on missing prerequisite: technology NonExistentTech');
+	});
+});
+
+describe('traversal', () => {
+	const g = graph.build(graphData);
+
+	describe('traverseDescendants', () => {
+		test('traverses ancestors with callback', () => {
+			const literacy = g['technology_literacy'];
+			const ancestors: string[] = [];
+			graph.traverseAncestors(literacy, (node) => {
+				ancestors.push(node.id);
+			});
+			expect(ancestors).toEqual(expect.arrayContaining([
+				'technology_writing',
+				'technology_alphabet',
+				'technology_code_of_laws',
+			]));
 		});
 
-		test('errors on getting children of non-existent node', () => {
-			const graph = new Graph(graphData);
-			expect(() => {
-				graph.children('non-existent-node');
-			}).toThrow('Node with id non-existent-node does not exist in the graph.');
-		});
-		
-		test('gets ancestors', () => {
-			const graph = new Graph(graphData);
-			const ancestors = graph.ancestors('tech-literacy');
-			expect(ancestors.length).toBe(3);
+		test('traverses ancestors without callback', () => {
+			const literacy = g['technology_literacy'];
+			const ancestors = graph.traverseAncestors(literacy);
 			const ancestorIds = ancestors.map(node => node.id);
-			expect(ancestorIds).toContain('tech-writing');
-			expect(ancestorIds).toContain('tech-alphabet');
-			expect(ancestorIds).toContain('tech-code-of-laws');
+			expect(ancestorIds).toEqual(expect.arrayContaining([
+				'technology_writing',
+				'technology_alphabet',
+				'technology_code_of_laws',
+			]));
+		});
+	});
+
+	describe('traverseAncestors', () => {
+		test('traverses descendants with callback', () => {
+			const alphabet = g['technology_alphabet'];
+			const descendants: string[] = [];
+			graph.traverseDescendants(alphabet, (node) => {
+				descendants.push(node.id);
+			});
+			expect(descendants).toEqual(expect.arrayContaining([
+				'technology_writing',
+				'technology_code_of_laws',
+				'technology_literacy',
+				'building_library',
+				'unit_diplomat',
+				'wonder_great_library',
+				'building_courthouse',
+			]));
 		});
 
-		test('errors on getting ancestors of non-existent node', () => {
-			const graph = new Graph(graphData);
-			expect(() => {
-				graph.ancestors('non-existent-node');
-			}).toThrow('Node with id non-existent-node does not exist in the graph.');
-		});
-
-		test('gets descendants', () => {
-			const graph = new Graph(graphData);
-			const descendants = graph.descendants('tech-writing');
-			expect(descendants.length).toBe(4);
+		test('traverses descendants without callback', () => {
+			const alphabet = g['technology_alphabet'];
+			const descendants = graph.traverseDescendants(alphabet);
 			const descendantIds = descendants.map(node => node.id);
-			expect(descendantIds).toContain('building-library');
-			expect(descendantIds).toContain('unit-diplomat');
-			expect(descendantIds).toContain('tech-literacy');
-			expect(descendantIds).toContain('wonder-great-library');
-		});
-
-		test('errors on getting descendants of non-existent node', () => {
-			const graph = new Graph(graphData);
-			expect(() => {
-				graph.descendants('non-existent-node');
-			}).toThrow('Node with id non-existent-node does not exist in the graph.');
-		});
-
-		test('traverses down', () => {
-			const graph = new Graph(graphData);
-			const visitedNodes: string[] = [];
-			graph.traverse('tech-writing', 'down', (node: GraphNode) => {
-				visitedNodes.push(node.id);
-			});
-			expect(visitedNodes.length).toBe(5);
-			['tech-writing', 'building-library', 'unit-diplomat', 'tech-literacy', 'wonder-great-library'].forEach(id => {
-				expect(visitedNodes).toContain(id);
-			});
-		});
-
-		test('errors on traversing from non-existent node', () => {
-			const graph = new Graph(graphData);
-			expect(() => {
-				graph.traverse('non-existent-node', 'down', () => {});
-			}).toThrow('Node with id non-existent-node does not exist in the graph.');
-		});
-
-		test('traverses up', () => {
-			const graph = new Graph(graphData);
-			const visitedNodes: string[] = [];
-			graph.traverse('wonder-great-library', 'up', (node: GraphNode) => {
-				visitedNodes.push(node.id);
-			});
-			expect(visitedNodes.length).toBe(5);
-			['wonder-great-library', 'tech-literacy', 'tech-writing', 'tech-alphabet', 'tech-code-of-laws'].forEach(id => {
-				expect(visitedNodes).toContain(id);
-			});
-		});
-
-		test('errors on traversing to non-existent node', () => {
-			const graph = new Graph(graphData);
-			expect(() => {
-				graph.traverse('non-existent-node', 'up', () => {});
-			}).toThrow('Node with id non-existent-node does not exist in the graph.');
+			expect(descendantIds).toEqual(expect.arrayContaining([
+				'technology_writing',
+				'technology_code_of_laws',
+				'technology_literacy',
+				'building_library',
+				'unit_diplomat',
+				'wonder_great_library',
+				'building_courthouse',
+			]));
 		});
 	});
 });

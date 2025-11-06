@@ -1,6 +1,22 @@
 import { GraphData } from "./types";
 
 const data: GraphData = {
+	styles: {
+		light: {
+			technology: 'lightgreen',
+			unit: 'lightgray',
+			building: 'lightblue',
+			wonder: 'gold',
+			spaceshippart: 'lightcoral',
+		},
+		dark: {
+			technology: 'darkgreen',
+			unit: 'darkgray',
+			building: 'darkblue',
+			wonder: 'darkgoldenrod',
+			spaceshippart: 'darkred',
+		},
+	},
 	nodes: [
 		{ name: "Advanced Flight", type: 'technology', prereqs: [{ name: "Electricity", type: "technology" }, { name: "Flight", type: "technology" }], unlocks: [{ name: "Bomber", type: "unit" }, { name: "Carrier", type: "unit" }] },
 		{ name: "Alphabet", type: 'technology' },
@@ -29,7 +45,7 @@ const data: GraphData = {
 		{ name: "Flight", type: 'technology', prereqs: [{ name: "Physics", type: "technology" }, { name: "Combustion", type: "technology" }], unlocks: [{ name: "Fighter", type: "unit" }] },
 		{ name: "Fusion Power", type: 'technology', prereqs: [{ name: "Nuclear Power", type: "technology" }, { name: "Super Conductor", type: "technology" }] },
 		{ name: "Genetic Engineering", type: 'technology', prereqs: [{ name: "Medicine", type: "technology" }, { name: "The Corporation", type: "technology" }], unlocks: [{ name: "Cure for Cancer", type: "wonder" }] },
-		{ name: "Gunpowder", type: 'technology', prereqs: [{ name: "Invention", type: "technology" }, { name: "Iron Working", type: "technology" }], unlocks: [{ name: "Musketeers", type: "unit" }] },
+			{ name: "Gunpowder", type: 'technology', prereqs: [{ name: "Invention", type: "technology" }, { name: "Iron Working", type: "technology" }], unlocks: [{ name: "Musketeers", type: "unit" }] },
 		{ name: "Horseback Riding", type: 'technology', unlocks: [{ name: "Cavalry", type: "unit" }] },
 		{ name: "Industrialization", type: 'technology', prereqs: [{ name: "Banking", type: "technology" }, { name: "Railroad", type: "technology" }], unlocks: [{ name: "Factory", type: "building" }, { name: "Transport", type: "unit" }, { name: "Women's Suffrage", type: "wonder" }] },
 		{ name: "Invention", type: 'technology', prereqs: [{ name: "Engineering", type: "technology" }, { name: "Literacy", type: "technology" }] },
