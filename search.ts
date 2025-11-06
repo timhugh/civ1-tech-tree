@@ -10,24 +10,30 @@ export class Search {
 		private searchResultsContainer: HTMLElement,
 		private diagram: Diagram,
 	) {
-		searchInput.addEventListener('input', () => {
+		this.searchInput.addEventListener('input', () => {
 			const query = this.searchInput.value.toLowerCase();
 			this.search(query);
 		});
 
-		searchInput.addEventListener('focus', () => {
+		this.searchInput.addEventListener('focus', () => {
 			const query = this.searchInput.value.toLowerCase();
 			this.search(query);
 		});
 
-		searchInput.addEventListener('keypress', (e) => {
+		this.searchInput.addEventListener('blur', () => {
+			setTimeout(() => {
+				this.searchResultsContainer.style.display = 'none';
+			}, 100);
+		});
+
+		this.searchInput.addEventListener('keypress', (e) => {
 			if (e.key === 'Enter' && this.searchResults.length > 0) {
 				const firstResult = this.searchResults[0];
 				diagram.focusNode(firstResult);
 			}
 		});
 
-		clearButton.addEventListener('click', () => {
+		this.clearButton.addEventListener('click', () => {
 			this.searchInput.value = '';
 			this.searchResults.length = 0;
 			this.render();
@@ -59,5 +65,6 @@ export class Search {
 			});
 			this.searchResultsContainer.appendChild(resultItem);
 		});
+		this.searchResultsContainer.style.display = 'block';
 	}
 };

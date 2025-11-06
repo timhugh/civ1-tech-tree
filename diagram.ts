@@ -14,6 +14,7 @@ interface GoLinkData extends go.ObjectData {
 export class Diagram {
 	private graph: NodeMap;
 	private godiagram: go.Diagram;
+	private eventListeners: { [event: string]: Array<(...args: any[]) => void> } = {};
 
 	constructor(
 		private container: HTMLElement,
@@ -52,6 +53,7 @@ export class Diagram {
 			node.required = false;
 		});
 		this.updateDiagram();
+		this.emitEvent('selectionChanged');
 	}
 
 	toggleCompleted(node: Node): void {
@@ -61,9 +63,9 @@ export class Diagram {
 
 	toggleSelected(node: Node): void {
 		this.godiagram.startTransaction('toggleSelected');
-		if (node.selected) {
-			this.clearSelected();
-		} else {
+		const selected = node.selected;
+		this.clearSelected();
+		if (!selected) {
 			node.selected = true;
 			graph.traverseAncestors(node, (ancestor) => {
 				ancestor.required = true;
@@ -71,6 +73,7 @@ export class Diagram {
 		}
 		this.updateDiagram();
 		this.godiagram.commitTransaction('toggleSelected');
+		this.emitEvent('selectionChanged');
 	}
 
 	findNode(predicate: (node: Node) => boolean): Node | null {
@@ -80,6 +83,24 @@ export class Diagram {
 
 	filterNodes(predicate: (node: Node) => boolean): Node[] {
 		return Object.values(this.graph).filter(predicate);
+	}
+
+	getAncestors(node: Node): Node[] {
+		return graph.traverseAncestors(node);
+	}
+
+	addEventListener(event: string, listener: (...args: any[]) => void): void {
+		if (!this.eventListeners[event]) {
+			this.eventListeners[event] = [];
+		}
+		this.eventListeners[event].push(listener);
+	}
+
+	private emitEvent(event: string, ...args: any[]): void {
+		const listeners = this.eventListeners[event];
+		if (listeners) {
+			listeners.forEach(listener => listener(...args));
+		}
 	}
 
 	private updateDiagram(): void {

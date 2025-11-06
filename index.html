@@ -7,14 +7,17 @@
         <link rel="stylesheet" href="./style.css">
     </head>
     <body>
-        <div id="diagram"></div>
         <div id="search">
             <input type="text" id="search-input" placeholder="Search">
 						<button id="search-clear">Clear</button>
             <div id="search-results"></div>
         </div>
+        <div id="diagram"></div>
         <div id="controls">
-            <button id="reset-button">Reset Progress</button>
+					<button id="reset-button">Reset Progress</button>
+					<div>Current Target: <span id="current-target"></span></div>
+					<button id="clear-target-button">Clear</button>
+					<div id="target-progress"></div>
         </div>
         <script type="module" src="./main.ts"></script>
     </body>
